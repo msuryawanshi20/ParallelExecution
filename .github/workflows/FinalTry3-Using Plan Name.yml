@@ -70,7 +70,7 @@ jobs:
   
     - name: Execute Test Plan-${{github.event.inputs.plan}}
       run: |
-        temp=${{github.event.inputs.plan}}
+        temp="${{github.event.inputs.plan}}"
         echo "Test"$temp
         echo ${temp// /_}
         Temp=${echo ${github.event.inputs.plan// /_}}
