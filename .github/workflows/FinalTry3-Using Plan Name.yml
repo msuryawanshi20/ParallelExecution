@@ -62,8 +62,10 @@ jobs:
         temp="${{github.event.inputs.plan}}"
         echo "Test"$temp
         echo ${temp// /_}
-        TestPlanName=${(echo ${temp// /_})}
+        TestPlanName=${echo ${temp// /_}}
+        TestPlanName1=$(echo ${temp// /_})
         echo "WithoutSpaces--:"$TestPlanName
+        echo "WithoutSpaces--:"$TestPlanName1
         mkdir $GITHUB_WORKSPACE/ProvarHome
         curl -O https://download.provartesting.com/2.6.2/Provar_ANT_2.6.2.02.zip
         unzip -o Provar_ANT* -d ProvarHome
