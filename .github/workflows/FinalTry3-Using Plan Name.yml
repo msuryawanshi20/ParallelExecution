@@ -111,15 +111,11 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/ANT
         echo "compressing Results folder"
-        
-        zip -v -r Execution_Report_for_${{github.workflow}}_${{github.event.inputs.plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
+        echo "WithoutSpaces--:"$TestPlanName
+        zip -v -r Execution_Report_for_${{github.workflow}}_$TestPlanName-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
         echo "-----List of file-----"
         ls -a
-        apt-get install rename
-        find . -name "* *" -type f | rename 's/ /_/g'
-        echo "-----List of file-----"
-        ls -a
-
+       
     - name: Upload Report Zip file To Slack
       uses: adrey/slack-file-upload-action@master
       if: ${{ always() }}
