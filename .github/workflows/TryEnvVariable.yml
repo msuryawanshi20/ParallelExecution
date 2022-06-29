@@ -69,6 +69,5 @@ jobs:
     - name: Execute Test Plan-${{github.event.inputs.plan}}
       run: |
         echo "Date-"${{ steps.date.outputs.date }}
-        echo "TestPlan"${{ steps.PlanName.outputs.TestName}}
-        echo "TestPlan"${{ steps.PlanName2.outputs.TestName}}
-        echo "TestPlan"${{ steps.PlanName3.outputs.TestName}}
+        echo "Try1"${{ steps.PlanName.outputs.TestName}}
+        echo "Try2"${{ steps.PlanName2.outputs.TestName}}
