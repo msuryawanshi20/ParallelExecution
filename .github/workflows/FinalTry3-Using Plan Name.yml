@@ -98,7 +98,7 @@ jobs:
       if: ${{ always() }}
       with:
        token: ${{ secrets.SLACK_TOKEN }}
-       path: ${{ github.workspace }}/ANT/Results/Artifacts/PDF_Report.pdf
+       path: ${{ github.workspace }}/ANT/Results/Artifacts/${{ steps.PlanName.outputs.PlanName}}-${{ steps.date.outputs.date }}.pdf
        channel: provar-gitaction
        title: PDF Report-${{github.event.inputs.plan}}-${{ steps.date.outputs.date }}
 
