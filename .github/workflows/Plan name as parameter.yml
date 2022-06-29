@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       plan:
-        description: 'Enter Plan Name' eg.1)["Test1"] eg.2)["Test1","Test2"]
+        description: 'Enter Plan Name eg.1)["Test1"] eg.2)["Test1","Test2"]'
         required: true
 		
       TestEnv:
