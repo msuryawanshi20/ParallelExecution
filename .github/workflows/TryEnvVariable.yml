@@ -38,10 +38,21 @@ jobs:
       
     - name: Set Plan Name
       id: PlanName
-      run: temp="${{github.event.inputs.plan}}" | echo "::set-output name=TestName::$(echo ${temp// /_})"
+      run: |
+        temp="${{github.event.inputs.plan}}"
+        echo "::set-output name=TestName::$(echo ${temp// /_})"
 
     - name: Set Plan Name
       id: PlanName2
+      run: |
+        temp="${{github.event.inputs.plan}}"
+        tempVar=$(echo ${temp// /_})
+        echo "tempvar"${tempVar}
+        echo "::set-output name=TestName::$tempVar"
+
+
+    - name: Set Plan Name
+      id: PlanName3
       run: echo "::set-output name=TestName::$(echo ${({github.event.inputs.plan}//) /_})"
 
 
@@ -58,9 +69,6 @@ jobs:
     - name: Execute Test Plan-${{github.event.inputs.plan}}
       run: |
         echo "Date-"${{ steps.date.outputs.date }}
-        echo "Date-"${{ steps.date.output.date }}
-        echo "TestPlan"${{ steps.PlanName.output.TestName}}
         echo "TestPlan"${{ steps.PlanName.outputs.TestName}}
-        
-        echo "TestPlan"${{ steps.PlanName2.output.TestName}}
         echo "TestPlan"${{ steps.PlanName2.outputs.TestName}}
+        echo "TestPlan"${{ steps.PlanName3.outputs.TestName}}
