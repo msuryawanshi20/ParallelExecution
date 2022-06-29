@@ -70,7 +70,7 @@ jobs:
   
     - name: Execute Test Plan-${{github.event.inputs.plan}}
       run: |
-        echo $({(${{github.event.inputs.plan}})// /_})
+        echo ${github.event.inputs.plan// /_}
         echo ${github.event.inputs.plan// /_}
         Temp=${echo ${github.event.inputs.plan// /_}}
         echo "WithoutSpaces--:"$Temp
