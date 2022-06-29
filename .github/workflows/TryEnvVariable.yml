@@ -34,12 +34,15 @@ jobs:
     steps:
     - name: Get current date
       id: date
-      run: |
-        temp="${{github.event.inputs.plan}}" | echo "::set-output name=date::$(echo ${temp// /_})"
-
+      run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H_%M_%S')"
+      
     - name: Set Plan Name
       id: PlanName
       run: temp="${{github.event.inputs.plan}}" | echo "::set-output name=TestName::$(echo ${temp// /_})"
+
+    - name: Set Plan Name
+      id: PlanName2
+      run: echo "::set-output name=TestName::$(echo ${{github.event.inputs.plan}// /_})"
 
 
     - name: Upload test file
@@ -58,3 +61,6 @@ jobs:
         echo "Date-"${{ steps.date.output.date }}
         echo "TestPlan"${{ steps.PlanName.output.TestName}}
         echo "TestPlan"${{ steps.PlanName.outputs.TestName}}
+        
+        echo "TestPlan"${{ steps.PlanName2.output.TestName}}
+        echo "TestPlan"${{ steps.PlanName2.outputs.TestName}}
