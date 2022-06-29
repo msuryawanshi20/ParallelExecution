@@ -62,6 +62,7 @@ jobs:
         temp="${{github.event.inputs.plan}}"
         echo "Test"$temp
         echo ${temp// /_}
+        echo "----"
         TestPlanName=${echo ${temp// /_}}
         TestPlanName1=$(echo ${temp// /_})
         echo "WithoutSpaces--:"$TestPlanName
