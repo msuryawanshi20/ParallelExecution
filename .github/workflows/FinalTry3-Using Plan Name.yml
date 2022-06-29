@@ -29,12 +29,13 @@ jobs:
     runs-on: ubuntu-latest
     env: 
        PROVAR_HOME: ${{ github.workspace }}/ProvarHome
+       
       
     steps:
     - name: Get current date
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H_%M_%S')"
-                                         
+    
     - uses: actions/checkout@v2
     - name: Set up JDK 8
       uses: actions/setup-java@v2
@@ -45,9 +46,6 @@ jobs:
     - name: Execute Test Plan-${{github.event.inputs.plan}}
       run: |
         temp="${{github.event.inputs.plan}}"
-        echo "Test"$temp
-        echo ${temp// /_}
-        echo "----"
         TestPlanName=$(echo ${temp// /_})
         echo "WithoutSpaces--:"$TestPlanName
         mkdir $GITHUB_WORKSPACE/ProvarHome
@@ -94,9 +92,11 @@ jobs:
       if: ${{ always() }}
       run: |
         cd $GITHUB_WORKSPACE/ANT
-        echo "compressing Results folder"
+        temp="${{github.event.inputs.plan}}"
+        TestPlanName=$(echo ${temp// /_})
         echo "PlanName--:"$TestPlanName
-        zip -v -r Execution_Report_for_${{github.workflow}}_$TestPlanName-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
+        echo "compressing Results folder"
+        zip -v -r Execution_Report_for_${{github.workflow}}_${TestPlanName}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
         echo "-----List of file-----"
         ls -a
        
@@ -105,7 +105,7 @@ jobs:
       if: ${{ always() }}
       with:
        token: ${{ secrets.SLACK_TOKEN }}
-       path: ${{ github.workspace }}/ANT/Execution_Report_for*
+       path: ${{ github.workspace }}/ANT/Execution_Report_for_${{github.workflow}}_${TestPlanName}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip
        channel: provar-gitaction   
        
     - name: Attached Report Zip file to WorkFlow
