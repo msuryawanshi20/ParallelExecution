@@ -81,8 +81,8 @@ jobs:
         echo $PROVAR_HOME
         cd $GITHUB_WORKSPACE/ANT
         echo "Selected Plan Name="${{ github.event.inputs.plan }}
-        echo "WithoutSpaces--:"
-        echo (${github.event.inputs.TestEnv// /_})
+        Temp=${echo ${github.event.inputs.plan// /_}}
+        echo "WithoutSpaces--:"$Temp
         echo "Selected Environment is="${{ github.event.inputs.TestEnv }}
         xvfb-run ant -file build.xml "-DTestEnv=${{ github.event.inputs.TestEnv }}" "-DTestPlan=${{ github.event.inputs.plan }}" runtests
    
