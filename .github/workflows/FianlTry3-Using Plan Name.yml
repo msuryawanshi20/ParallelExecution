@@ -26,7 +26,7 @@ on:
         - SOAPI
         - SYDATA-Sales_Order
         - System_Setup
-        - Work_Order
+        - Work Order
         - Temp
         - Test1
         - Test2
