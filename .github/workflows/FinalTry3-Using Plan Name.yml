@@ -35,7 +35,13 @@ jobs:
     - name: Get current date
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H_%M_%S')"
-    
+
+    - name: Set Plan Name
+      id: PlanName
+      run: |
+        temp="${{github.event.inputs.plan}}"
+        echo "::set-output name=TestName::$(echo ${temp// /_})"    
+
     - uses: actions/checkout@v2
     - name: Set up JDK 8
       uses: actions/setup-java@v2
@@ -45,7 +51,7 @@ jobs:
 
     - name: Upload test file
       uses: actions/checkout@v1
-    - run: echo "Execution Started for Test Plan ${{github.event.inputs.plan}} at ${{ steps.date.outputs.date }}"> ExecutionStarted.txt
+    - run: echo "Execution Started for Test Plan ${{ steps.PlanName.outputs.TestName}} at ${{ steps.date.outputs.date }}"> ExecutionStarted.txt
     - name: Upload to slack step
       uses: adrey/slack-file-upload-action@master
       with:
@@ -102,11 +108,8 @@ jobs:
       if: ${{ always() }}
       run: |
         cd $GITHUB_WORKSPACE/ANT
-        temp="${{github.event.inputs.plan}}"
-        TestPlanName=$(echo ${temp// /_})
-        echo "PlanName--:"$TestPlanName
         echo "compressing Results folder"
-        zip -v -r Execution_Report_for_${{github.workflow}}_${TestPlanName}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
+        zip -v -r Execution_Report_for_${{github.workflow}}_${{ steps.PlanName.outputs.TestName}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
         echo "-----List of file-----"
         ls -a
        
@@ -115,7 +118,7 @@ jobs:
       if: ${{ always() }}
       with:
        token: ${{ secrets.SLACK_TOKEN }}
-       path: ${{ github.workspace }}/ANT/Execution_Report_for_${{github.workflow}}_${TestPlanName}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip
+       path: ${{ github.workspace }}/ANT/Execution_Report_for_${{github.workflow}}_${{ steps.PlanName.outputs.TestName}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip
        channel: provar-gitaction   
        
     - name: Attached Report Zip file to WorkFlow
