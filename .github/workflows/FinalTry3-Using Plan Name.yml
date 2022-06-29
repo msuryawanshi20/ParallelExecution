@@ -70,8 +70,9 @@ jobs:
   
     - name: Execute Test Plan-${{github.event.inputs.plan}}
       run: |
-        echo ${github.event.inputs.plan// /_}
-        echo ${github.event.inputs.plan// /_}
+        temp=${{github.event.inputs.plan}}
+        echo "Test"$temp
+        echo ${temp// /_}
         Temp=${echo ${github.event.inputs.plan// /_}}
         echo "WithoutSpaces--:"$Temp
         mkdir $GITHUB_WORKSPACE/ProvarHome
