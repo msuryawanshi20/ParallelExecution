@@ -63,9 +63,8 @@ jobs:
         echo "Test"$temp
         echo ${temp// /_}
         echo "----"
-        TestPlanName1=$(echo ${temp// /_})
+        TestPlanName=$(echo ${temp// /_})
         echo "WithoutSpaces--:"$TestPlanName
-        echo "WithoutSpaces--:"$TestPlanName1
         mkdir $GITHUB_WORKSPACE/ProvarHome
         curl -O https://download.provartesting.com/2.6.2/Provar_ANT_2.6.2.02.zip
         unzip -o Provar_ANT* -d ProvarHome
@@ -111,7 +110,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/ANT
         echo "compressing Results folder"
-        echo "WithoutSpaces--:"$TestPlanName
+        echo "PlanName--:"$TestPlanName
         zip -v -r Execution_Report_for_${{github.workflow}}_$TestPlanName-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
         echo "-----List of file-----"
         ls -a
