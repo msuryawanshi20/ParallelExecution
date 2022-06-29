@@ -81,6 +81,7 @@ jobs:
         echo $PROVAR_HOME
         cd $GITHUB_WORKSPACE/ANT
         echo "Selected Plan Name="${{ github.event.inputs.plan }}
+        echo "Plan name without Space" ${{ github.event.inputs.TestEnv }// /_}
         echo "Selected Environment is="${{ github.event.inputs.TestEnv }}
         xvfb-run ant -file build.xml "-DTestEnv=${{ github.event.inputs.TestEnv }}" "-DTestPlan=${{ github.event.inputs.plan }}" runtests
    
@@ -113,8 +114,10 @@ jobs:
     - name: Compressing Results folder(Create Zip File)
       if: ${{ always() }}
       run: |
+        plan_name=$(echo ${{github.event.inputs.plan}// /_})
         cd $GITHUB_WORKSPACE/ANT
         echo "compressing Results folder"
+        
         zip -v -r Execution_Report_for_${{github.workflow}}_${{github.event.inputs.plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
         echo "-----List of file-----"
         ls -a
