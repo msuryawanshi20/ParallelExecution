@@ -115,7 +115,6 @@ jobs:
     - name: Compressing Results folder(Create Zip File)
       if: ${{ always() }}
       run: |
-        plan_name=$(echo ${{github.event.inputs.plan}// /_})
         cd $GITHUB_WORKSPACE/ANT
         echo "compressing Results folder"
         
