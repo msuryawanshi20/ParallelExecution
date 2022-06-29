@@ -1,4 +1,4 @@
-name: FinalTry3-SelectPlanName-withSlack
+name: FinalTry2-SelectPlanName-withSlack
 
 on: 
   workflow_dispatch:
