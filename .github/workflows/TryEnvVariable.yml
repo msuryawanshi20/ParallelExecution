@@ -38,10 +38,7 @@ jobs:
 
     - name: Set Plan Name
       id: PlanName
-      run: |
-        temp="${{github.event.inputs.plan}}"
-        TestPlanName=$(echo ${temp// /_})
-        echo "::set-output name=TestPlan::$TestPlanName"     
+      run: temp="${{github.event.inputs.plan}}" | TestPlanName=$(echo ${temp// /_}) | echo "::set-output name=TestName::"$TestPlanName    
 
 
     - name: Upload test file
@@ -57,4 +54,4 @@ jobs:
     - name: Execute Test Plan-${{github.event.inputs.plan}}
       run: |
         echo "Date-"${{ steps.date.outputs.date }}
-        echo "TestPlan"${{ steps.PlanName.output.TestPlan}}
+        echo "TestPlan"${{ steps.PlanName.output.TestName}}
