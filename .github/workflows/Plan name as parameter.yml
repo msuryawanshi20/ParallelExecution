@@ -20,8 +20,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        Plan: [${{github.event.inputs.plan}}]  	
-    
+        Plan: ["","${{github.event.inputs.plan}}"]
+
     steps:
     - name: Get current date
       id: date
