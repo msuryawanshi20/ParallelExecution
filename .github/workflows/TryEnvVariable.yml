@@ -34,11 +34,11 @@ jobs:
     steps:
     - name: Get current date
       id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H_%M_%S')"
+      run: echo "::set-output name=date::$($(echo ${temp// /_})"
 
     - name: Set Plan Name
       id: PlanName
-      run: temp="${{github.event.inputs.plan}}" | TestPlanName=$(echo ${temp// /_}) | echo "::set-output name=TestName::"$TestPlanName    
+      run: temp="${{github.event.inputs.plan}}" | echo "::set-output name=TestName::$(echo ${temp// /_})"
 
 
     - name: Upload test file
