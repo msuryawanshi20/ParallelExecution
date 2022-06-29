@@ -22,7 +22,7 @@ on:
         - Requisition
         - RMA
         - Sales_Orders
-        - Shop_Floor
+        - Shop Floor
         - SOAPI
         - SYDATA-Sales_Order
         - System_Setup
