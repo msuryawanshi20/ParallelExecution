@@ -35,7 +35,7 @@ jobs:
     - name: Get current date
       id: date
       run: |
-      temp="${{github.event.inputs.plan}}" | echo "::set-output name=date::$(echo ${temp// /_})"
+        temp="${{github.event.inputs.plan}}" | echo "::set-output name=date::$(echo ${temp// /_})"
 
     - name: Set Plan Name
       id: PlanName
