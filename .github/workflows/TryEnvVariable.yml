@@ -42,7 +42,7 @@ jobs:
 
     - name: Set Plan Name
       id: PlanName2
-      run: echo "::set-output name=TestName::$(echo ${{github.event.inputs.plan}// /_})"
+      run: echo "::set-output name=TestName::$(echo ${({github.event.inputs.plan}//) /_})"
 
 
     - name: Upload test file
