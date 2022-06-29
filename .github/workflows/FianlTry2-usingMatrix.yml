@@ -18,9 +18,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        Plan: ["Test1","Test2","Test3","Test4","Test5","Test6"]  
-
-		
+        Plan: ["Test1","Test2","Test3","Test4","Test5","Test6"]  	
+    
     steps:
     - name: Get current date
       id: date
