@@ -61,7 +61,7 @@ jobs:
 
     - name: Execute Test Plan-${{github.event.inputs.plan}}
       run: |
-        echo "Plan Name From Env Var"${{ steps.date.outputs.PlanName }}
+        echo "Plan Name From Env Var"${{ steps.PlanName.outputs.PlanName }}
         temp="${{github.event.inputs.plan}}"
         TestPlanName=$(echo ${temp// /_})
         echo "WithoutSpaces--:"$TestPlanName
@@ -112,8 +112,10 @@ jobs:
         temp="${{github.event.inputs.plan}}"
         TestPlanName=$(echo ${temp// /_})
         echo "PlanName--:"$TestPlanName
+        echo"------Plan Name from variable--------"
+        echo ${{ steps.PlanName.outputs.PlanName }}
         echo "compressing Results folder"
-        zip -v -r Execution_Report_for_${{github.workflow}}_${TestPlanName}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
+        zip -v -r Execution_Report_for_${{github.workflow}}_${{ steps.PlanName.outputs.PlanName }}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
         echo "-----List of file-----"
         ls -a
        
@@ -122,7 +124,7 @@ jobs:
       if: ${{ always() }}
       with:
        token: ${{ secrets.SLACK_TOKEN }}
-       path: ${{ github.workspace }}/ANT/Execution_Report_for_${{github.workflow}}_${TestPlanName}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip
+       path: ${{ github.workspace }}/ANT/Execution_Report_for_${{github.workflow}}_${{ steps.PlanName.outputs.PlanName }}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip
        channel: provar-gitaction   
        
     - name: Attached Report Zip file to WorkFlow
