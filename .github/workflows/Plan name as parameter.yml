@@ -1,0 +1,93 @@
+name: Using_Plan_Name_as_text_input
+
+on: 
+  workflow_dispatch:
+    inputs:
+      
+      plan:
+        description: 'Enter Plan Name'
+        required: true
+    
+      TestEnv:
+        type: choice
+        description: Please select environment
+        options: 
+        - AutomationOrg 
+  
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env: 
+       PROVAR_HOME: ${{ github.workspace }}/ProvarHome
+    
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+    - uses: actions/checkout@v2
+    - name: Set up JDK 8
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: 8
+    
+    - name: Send message to Slack API
+      uses: archive/github-actions-slack@v2.0.0
+      id: notify
+      with:
+        slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN}}
+        slack-channel: C03KF4U7TSP
+        slack-text: Hello! Started execution for ${{github.event.inputs.plan}} using ${{github.workflow}}
+    
+    - name: Result from "Send Message"
+      run: echo "The result was ${{ steps.notify.outputs.slack-result }}"   
+    
+    - name: Build with Ant
+      run: |
+        mkdir $GITHUB_WORKSPACE/ProvarHome
+        curl -O Provar_ANT_latest.zip https://download.provartesting.com/2.6.2/Provar_ANT_2.6.2.02.zip
+        unzip -o Provar_ANT* -d ProvarHome
+        rm Provar_ANT_*
+        sudo apt-get update && sudo apt-get upgrade       
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -        
+        sudo echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >>sudo tee -a /etc/apt/sources.list.d/google-chrome.list
+        sudo apt-get -y install google-chrome-stable
+        echo $PROVAR_HOME
+        cd $GITHUB_WORKSPACE/ANT
+        echo "Selected Plan Name="${{ github.event.inputs.plan }}
+        echo "Selected Environment is="${{ github.event.inputs.TestEnv }}
+        xvfb-run ant -file build.xml "-DTestEnv=${{ github.event.inputs.TestEnv }}" "-DTestPlan=${{ github.event.inputs.plan }}" runtests
+        zip -v -r Execution_Report_for_${{github.workflow}}_${{github.event.inputs.plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
+        echo "List of file"
+        ls -a
+
+    - name: Upload Report To Slack
+      if: ${{ always() }}
+
+      run: |
+        echo "Working Directory"
+        pwd
+        cd $GITHUB_WORKSPACE/ANT
+        ls -a
+        zip -v -r Execution_Report_for_${{github.workflow}}_${{github.event.inputs.plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
+        echo "List of file"
+        ls -a
+        
+    - uses: adrey/slack-file-upload-action@master
+      if: ${{ always() }}
+      with:
+       token: ${{ secrets.SLACK_TOKEN }}
+       path: ${{ github.workspace }}/ANT/Execution_Report_for_${{github.workflow}}_${{github.event.inputs.plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip
+       channel: provar-gitaction   
+       
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Execution_Report_for_${{github.workflow}}_${{github.event.inputs.plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}
+        path: ${{ github.workspace }}/ANT/Results/*
+    
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: Execution_Report_for_${{github.workflow}}_${{github.event.inputs.plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+        path: ${{ github.workspace }}/ANT/Results/*

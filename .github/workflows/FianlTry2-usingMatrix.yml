@@ -1,0 +1,110 @@
+name: FianlTry2-usingMatrix
+
+on: 
+  workflow_dispatch:
+    inputs:
+      TestEnv:
+        type: choice
+        description: Please select environment
+        options: 
+        - AutomationOrg 
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: 
+       PROVAR_HOME: ${{ github.workspace }}/ProvarHome
+    strategy:
+      fail-fast: false
+      matrix:
+        Plan: ["Test1","Test2","Test3"]    
+        
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H_%M_%S')"
+                                         
+    - uses: actions/checkout@v2
+    - name: Set up JDK 8
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: 8
+    
+     
+    - name: Upload test file
+      uses: actions/checkout@v1
+    - run: echo "Execution Started for Test Plan ${{matrix.Plan}} at ${{ steps.date.outputs.date }}"> ExecutionStarted.txt
+    - name: Upload to slack step
+      uses: adrey/slack-file-upload-action@master
+      with:
+          token: ${{ secrets.SLACK_TOKEN }}
+          path: ExecutionStarted.txt
+          channel: provar-gitaction
+  
+    - name: Execute Test Plan-${{matrix.Plan}}
+      run: |
+        mkdir $GITHUB_WORKSPACE/ProvarHome
+        curl -O Provar_ANT_latest.zip https://download.provartesting.com/2.6.2/Provar_ANT_2.6.2.02.zip
+        unzip -o Provar_ANT* -d ProvarHome
+        rm Provar_ANT_*
+        sudo apt-get update && sudo apt-get upgrade       
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -        
+        sudo echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >>sudo tee -a /etc/apt/sources.list.d/google-chrome.list
+        sudo apt-get -y install google-chrome-stable
+        echo $PROVAR_HOME
+        cd $GITHUB_WORKSPACE/ANT
+        echo "Selected Plan Name="${{ matrix.Plan }}
+        echo "Selected Environment is="${{ github.event.inputs.TestEnv }}
+        xvfb-run ant -file build.xml "-DTestEnv=${{ github.event.inputs.TestEnv }}" "-DTestPlan=${{ matrix.Plan }}" runtests
+   
+    - name: Upload JUnit Report To Slack
+      uses: adrey/slack-file-upload-action@master
+      if: ${{ always() }}
+      with:
+       token: ${{ secrets.SLACK_TOKEN }}
+       path: ${{ github.workspace }}/ANT/Results/JUnit html/junit-noframes.html
+       channel: provar-gitaction
+       title: JUnit Report-${{matrix.Plan}}-${{ steps.date.outputs.date }}
+
+    - name: Rename PDF File
+      if: ${{ always() }}
+      run: |
+        cd $GITHUB_WORKSPACE/ANT/Results/Artifacts/
+        mv *.pdf PDF_Report.pdf
+        echo "-----List of file After Rename-----"
+        ls -a
+        
+    - name: Upload PDF Report To Slack
+      uses: adrey/slack-file-upload-action@master
+      if: ${{ always() }}
+      with:
+       token: ${{ secrets.SLACK_TOKEN }}
+       path: ${{ github.workspace }}/ANT/Results/Artifacts/PDF_Report.pdf
+       channel: provar-gitaction
+       title: PDF Report-${{matrix.Plan}}-${{ steps.date.outputs.date }}
+
+    - name: compressing Results folder
+      if: ${{ always() }}
+      run: |
+        cd $GITHUB_WORKSPACE/ANT
+        echo "compressing Results folder"
+        zip -v -r Execution_Report_for_${{github.workflow}}_${{matrix.Plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
+        echo "-----List of file-----"
+        ls -a
+
+
+    - name: Upload Report Zip file To Slack
+      uses: adrey/slack-file-upload-action@master
+      if: ${{ always() }}
+      with:
+       token: ${{ secrets.SLACK_TOKEN }}
+       path: ${{ github.workspace }}/ANT/Execution_Report_for_${{github.workflow}}_${{matrix.Plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip
+       channel: provar-gitaction   
+       
+    - name: Attached Report Zip file to WorkFlow
+      uses: actions/upload-artifact@v2
+      if: ${{ always() }}
+      with:
+        name: Execution_Report_for_${{github.workflow}}_${{matrix.Plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}
+        path: ${{ github.workspace }}/ANT/Results/*

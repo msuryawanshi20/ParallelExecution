@@ -1,0 +1,60 @@
+name: buildNumberTest
+on: 
+  workflow_dispatch:
+    inputs:
+      TestEnv:
+        type: choice
+        description: Please select environment
+        options: 
+        - AutomationOrg
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+   
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest    
+    env: 
+     PROVAR_HOME: ${{ github.workspace }}/ProvarHome
+    strategy:
+      fail-fast: false
+      matrix:
+        Plan: ["Test1","Test2","Test3"]
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        
+    - name: BuildName1
+      run:  echo ${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}
+    - name: BuildName2
+      run:  |
+       echo ${{ github.run_id }}-${{github.run_number}}
+       echo JOB-NAME____${{github.job}}
+       echo ${{ github.run_id }}-${{ github.run_name}}
+       echo GitActionName-${{github.action}}
+       echo Status-${{github.action_status}}
+       echo Unkown-${{github.action}}
+       echo Status2-${{github.action_status}}
+       echo Unkown2-${{github.job}}
+       echo RunAttempt-${{github.run_attempt}}
+       echo WorkFlow -${{github.workflow}}
+       
+       echo FLowName_RunNumber_RunAttempt---${{github.workflow}}-${{ github.run_number }}-${{github.run_attempt}}
+       echo Status-${{job.status}}
+    - name: Checkout
+      uses: actions/checkout@v1
+    - run: echo "Test file " > test.txt
+    - name: Upload Report To Slack
+      uses: adrey/slack-file-upload-action@master
+      if: ${{ always() }}
+      with:
+       token: ${{ secrets.SLACK_TOKEN }}
+       path: test.txt
+
+       
+    
