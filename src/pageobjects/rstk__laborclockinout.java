@@ -152,7 +152,7 @@ public class rstk__laborclockinout {
 
 		testLogger.info("Size" + autoCompleteList.size());
 
-		while (autoCompleteList.size() > 10) {
+		while (autoCompleteList.size() > 10 || autoCompleteList.isEmpty()) {
 			ele.sendKeys(Keys.BACK_SPACE);
 			Thread.sleep(3000);
 			autoCompleteList = driver.findElements(By.xpath("//div[@class='ac_results'][3]/ul[@id='IDREF']/li"));
