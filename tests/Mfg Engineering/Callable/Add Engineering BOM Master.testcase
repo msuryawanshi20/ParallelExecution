@@ -137,50 +137,31 @@
       <clauses>
         <clause name="substeps" testItemId="6">
           <steps>
-            <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiDoAction" name="UiDoAction" testItemId="7" title="Call the selectParentItem method to {ip_parentItem}">
+            <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiDoAction" name="UiDoAction" testItemId="18" title="Call the selectParentItem method">
               <arguments>
                 <argument id="locator">
-                  <value class="uiLocator" uri="ui:pageobject:method?pageId=pageobjects.rstk__Pebom&amp;operation=selectParentItem"/>
+                  <value class="uiLocator" uri="ui:pageobject:method?operation=selectParentItem&amp;pageId=pageobjects.rstk__Pebom"/>
                 </argument>
                 <argument id="interaction">
                   <value class="uiInteraction" uri="ui:interaction?name=invoke"/>
                 </argument>
-                <argument id="pressEnter">
-                  <value class="value" valueClass="boolean">false</value>
+                <argument id="interactionDescription">
+                  <value class="value" valueClass="string">Call the selectParentItem method</value>
                 </argument>
+                <argument id="beforeWait"/>
+                <argument id="afterWait"/>
+                <argument id="autoRetry"/>
                 <argument id="captureBefore">
                   <value class="value" valueClass="string">false</value>
                 </argument>
                 <argument id="captureAfter">
                   <value class="value" valueClass="string">false</value>
                 </argument>
-                <argument id="beforeWait">
-                  <value class="uiWait" uri="default"/>
-                </argument>
-                <argument id="afterWait">
-                  <value class="uiWait" uri="ui:wait:auraBusy?timeout=60"/>
-                </argument>
-                <argument id="interactionDescription">
-                  <value class="value" valueClass="string">Call the selectParentItem method to {ip_parentItem}</value>
-                </argument>
-                <argument id="autoRetry"/>
                 <argument id="param_parentItemName">
                   <value class="variable">
                     <path element="ip_parentItem"/>
                   </value>
                 </argument>
-                <argument id="param_componentItemName">
-                  <value class="variable">
-                    <path element="ip_parentItem"/>
-                  </value>
-                </argument>
-                <argument id="param_parentItemName"/>
-                <argument id="value">
-                  <value class="variable">
-                    <path element="ip_parentItem"/>
-                  </value>
-                </argument>
-                <argument id="blur"/>
               </arguments>
               <generatedParameters>
                 <apiParam group="value" name="param_parentItemName" title="Parent Item Name">
@@ -188,95 +169,39 @@
                     <textType/>
                   </type>
                 </apiParam>
-                <apiParam group="value" name="value" seq="10000" title="Value">
-                  <summary>The value to be populated.</summary>
-                  <type>
-                    <textType>
-                      <constraints>
-                        <valueConstraint name="mimeType">text/plain</valueConstraint>
-                      </constraints>
-                    </textType>
-                  </type>
-                </apiParam>
-                <apiParam group="value" name="blur" seq="10001" title="Tab off field">
-                  <summary>Whether the tab key should be pressed after the value is populated.</summary>
-                  <type>
-                    <booleanType/>
-                  </type>
-                </apiParam>
-                <apiParam group="value" name="pressEnter" seq="10002" title="Press Enter">
-                  <summary>Whether the Enter key should be pressed after the value is populated.</summary>
-                  <type>
-                    <booleanType/>
-                  </type>
-                </apiParam>
               </generatedParameters>
             </apiCall>
-            <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiDoAction" name="UiDoAction" testItemId="9" title="Call the selectComponentItem method to {ip_componentItem}">
+            <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiDoAction" name="UiDoAction" testItemId="19" title="Call the selectComponentItem method">
               <arguments>
                 <argument id="locator">
-                  <value class="uiLocator" uri="ui:pageobject:method?pageId=pageobjects.rstk__Pebom&amp;operation=selectComponentItem"/>
+                  <value class="uiLocator" uri="ui:pageobject:method?operation=selectComponentItem&amp;pageId=pageobjects.rstk__Pebom"/>
                 </argument>
                 <argument id="interaction">
                   <value class="uiInteraction" uri="ui:interaction?name=invoke"/>
                 </argument>
-                <argument id="pressEnter">
-                  <value class="value" valueClass="boolean">false</value>
+                <argument id="interactionDescription">
+                  <value class="value" valueClass="string">Call the selectComponentItem method</value>
                 </argument>
+                <argument id="beforeWait"/>
+                <argument id="afterWait"/>
+                <argument id="autoRetry"/>
                 <argument id="captureBefore">
                   <value class="value" valueClass="string">false</value>
                 </argument>
                 <argument id="captureAfter">
                   <value class="value" valueClass="string">false</value>
                 </argument>
-                <argument id="beforeWait">
-                  <value class="uiWait" uri="default"/>
-                </argument>
-                <argument id="afterWait">
-                  <value class="uiWait" uri="ui:wait:auraBusy?timeout=60"/>
-                </argument>
-                <argument id="interactionDescription">
-                  <value class="value" valueClass="string">Call the selectComponentItem method to {ip_componentItem}</value>
-                </argument>
-                <argument id="autoRetry"/>
+                <argument id="param_parentItemName"/>
                 <argument id="param_componentItemName">
                   <value class="variable">
                     <path element="ip_componentItem"/>
                   </value>
                 </argument>
-                <argument id="value">
-                  <value class="variable">
-                    <path element="ip_componentItem"/>
-                  </value>
-                </argument>
-                <argument id="blur"/>
               </arguments>
               <generatedParameters>
                 <apiParam group="value" name="param_componentItemName" title="Component Item Name">
                   <type>
                     <textType/>
-                  </type>
-                </apiParam>
-                <apiParam group="value" name="value" seq="10000" title="Value">
-                  <summary>The value to be populated.</summary>
-                  <type>
-                    <textType>
-                      <constraints>
-                        <valueConstraint name="mimeType">text/plain</valueConstraint>
-                      </constraints>
-                    </textType>
-                  </type>
-                </apiParam>
-                <apiParam group="value" name="blur" seq="10001" title="Tab off field">
-                  <summary>Whether the tab key should be pressed after the value is populated.</summary>
-                  <type>
-                    <booleanType/>
-                  </type>
-                </apiParam>
-                <apiParam group="value" name="pressEnter" seq="10002" title="Press Enter">
-                  <summary>Whether the Enter key should be pressed after the value is populated.</summary>
-                  <type>
-                    <booleanType/>
                   </type>
                 </apiParam>
               </generatedParameters>

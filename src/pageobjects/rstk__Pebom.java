@@ -102,8 +102,7 @@ public class rstk__Pebom {
 		}
 
 	}
-	
-	public void selectComponentItem(String componentItemName) throws InterruptedException {
+	public	void selectComponentItem(String componentItemName) throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 
 		String xpath = "//input[@id='pebom_compitem__c_autocomplete']";
