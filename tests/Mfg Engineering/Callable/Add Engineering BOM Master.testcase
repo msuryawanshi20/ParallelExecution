@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testCase failureBehaviour="Inherit" id="0" registryId="dbc0b593-279b-4897-861e-93b7d50c3943" visibility="Internal">
+<testCase failureBehaviour="Inherit" id="5" registryId="dbc0b593-279b-4897-861e-93b7d50c3943" visibility="Internal">
   <summary/>
   <steps>
     <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.ApexConnect" name="ApexConnect" testItemId="1" title="Salesforce Connect: SFConnection (Test)">
@@ -428,7 +428,7 @@
                           <value class="uiWait" uri="default"/>
                         </argument>
                         <argument id="afterWait">
-                          <value class="uiWait" uri="default"/>
+                          <value class="uiWait" uri="ui:wait:auraBusy?timeout=60"/>
                         </argument>
                         <argument id="interactionDescription">
                           <value class="value" valueClass="string">Set the Setup Quantity field to {ip_setupQuantity}</value>
@@ -482,10 +482,10 @@
                   <value class="value" valueClass="string">false</value>
                 </argument>
                 <argument id="beforeWait">
-                  <value class="uiWait" uri="default"/>
+                  <value class="uiWait" uri="ui:wait:pageload?timeout=60"/>
                 </argument>
                 <argument id="afterWait">
-                  <value class="uiWait" uri="default"/>
+                  <value class="uiWait" uri="ui:wait:auraBusy?timeout=60"/>
                 </argument>
                 <argument id="interactionDescription">
                   <value class="value" valueClass="string">Click the Save button</value>
@@ -594,7 +594,7 @@
   <args>
     <argument id="reuseConnectionName"/>
     <argument id="ip_parentItem">
-      <value class="value" valueClass="string">Pro-PEItem-ZRLYA</value>
+      <value class="value" valueClass="string">Pro-PEItem-1YHSV</value>
     </argument>
     <argument id="ip_componentItem">
       <value class="value" valueClass="string">pro-child1</value>
@@ -606,7 +606,7 @@
       <value class="value" valueClass="string">1</value>
     </argument>
     <argument id="ip_setupQuantity">
-      <value class="value" valueClass="string">0.000000</value>
+      <value class="value" valueClass="string">2</value>
     </argument>
   </args>
 </testCase>
