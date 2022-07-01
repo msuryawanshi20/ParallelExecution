@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testCase failureBehaviour="Inherit" id="5" registryId="dbc0b593-279b-4897-861e-93b7d50c3943" visibility="Internal">
+<testCase failureBehaviour="Inherit" id="15" registryId="dbc0b593-279b-4897-861e-93b7d50c3943" visibility="Internal">
   <summary/>
   <steps>
     <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.ApexConnect" name="ApexConnect" testItemId="1" title="Salesforce Connect: SFConnection (Test)">
@@ -171,16 +171,16 @@
                 </apiParam>
               </generatedParameters>
             </apiCall>
-            <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiDoAction" name="UiDoAction" testItemId="19" title="Call the selectComponentItem method">
+            <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiDoAction" name="UiDoAction" testItemId="20" title="Set the Component Item field to {ip_componentItem}">
               <arguments>
                 <argument id="locator">
-                  <value class="uiLocator" uri="ui:pageobject:method?operation=selectComponentItem&amp;pageId=pageobjects.rstk__Pebom"/>
+                  <value class="uiLocator" uri="ui:locator?name=componentItem"/>
                 </argument>
                 <argument id="interaction">
-                  <value class="uiInteraction" uri="ui:interaction?name=invoke"/>
+                  <value class="uiInteraction" uri="ui:interaction?name=set"/>
                 </argument>
                 <argument id="interactionDescription">
-                  <value class="value" valueClass="string">Call the selectComponentItem method</value>
+                  <value class="value" valueClass="string">Set the Component Item field to {ip_componentItem}</value>
                 </argument>
                 <argument id="beforeWait"/>
                 <argument id="afterWait"/>
@@ -191,20 +191,62 @@
                 <argument id="captureAfter">
                   <value class="value" valueClass="string">false</value>
                 </argument>
-                <argument id="param_parentItemName"/>
-                <argument id="param_componentItemName">
+                <argument id="value">
                   <value class="variable">
                     <path element="ip_componentItem"/>
                   </value>
                 </argument>
+                <argument id="blur"/>
+                <argument id="pressEnter"/>
               </arguments>
               <generatedParameters>
-                <apiParam group="value" name="param_componentItemName" title="Component Item Name">
+                <apiParam group="value" name="value" seq="10000" title="Value">
+                  <summary>The value to be populated.</summary>
                   <type>
-                    <textType/>
+                    <textType>
+                      <constraints>
+                        <valueConstraint name="mimeType">text/plain</valueConstraint>
+                      </constraints>
+                    </textType>
+                  </type>
+                </apiParam>
+                <apiParam group="value" name="blur" seq="10001" title="Tab off field">
+                  <summary>Whether the tab key should be pressed after the value is populated.</summary>
+                  <type>
+                    <booleanType/>
+                  </type>
+                </apiParam>
+                <apiParam group="value" name="pressEnter" seq="10002" title="Press Enter">
+                  <summary>Whether the Enter key should be pressed after the value is populated.</summary>
+                  <type>
+                    <booleanType/>
                   </type>
                 </apiParam>
               </generatedParameters>
+            </apiCall>
+            <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiDoAction" name="UiDoAction" testItemId="21" title="Lookup the List field">
+              <arguments>
+                <argument id="locator">
+                  <value class="uiLocator" uri="ui:locator?name=list"/>
+                </argument>
+                <argument id="interaction">
+                  <value class="uiInteraction" uri="ui:interaction?name=sfLookup"/>
+                </argument>
+                <argument id="interactionDescription">
+                  <value class="value" valueClass="string">Lookup the List field</value>
+                </argument>
+                <argument id="beforeWait"/>
+                <argument id="afterWait">
+                  <value class="uiWait" uri="ui:wait:auraBusy?timeout=60"/>
+                </argument>
+                <argument id="autoRetry"/>
+                <argument id="captureBefore">
+                  <value class="value" valueClass="string">false</value>
+                </argument>
+                <argument id="captureAfter">
+                  <value class="value" valueClass="string">false</value>
+                </argument>
+              </arguments>
             </apiCall>
             <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiDoAction" name="UiDoAction" testItemId="11" title="Set the Quantity Per field to {ip_quantityPer}">
               <arguments>
@@ -594,7 +636,7 @@
   <args>
     <argument id="reuseConnectionName"/>
     <argument id="ip_parentItem">
-      <value class="value" valueClass="string">Pro-PEItem-1YHSV</value>
+      <value class="value" valueClass="string">Pro-PEItem-N4EN6</value>
     </argument>
     <argument id="ip_componentItem">
       <value class="value" valueClass="string">pro-child1</value>
