@@ -20,14 +20,11 @@ jobs:
         with:
           slack-function: send-message
           slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
-          slack-channel: C03KF4U7TSP
-          slack-text: This is a message
+          slack-channel: C03MDTGHDU1
+          slack-text: Custome Test Mess
 
       - name: Send "Slack Message" Result
         run: echo "Data - ${{ steps.send-message.outputs.slack-result }}"
-
-      - name: Some step in between
-        run: echo "..."
 
       - name: Send Thread Message
         uses: archive/github-actions-slack@master
@@ -35,7 +32,7 @@ jobs:
           slack-function: send-message
           slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
           slack-channel: ${{ fromJson(steps.send-message.outputs.slack-result).response.channel }}
-          slack-text: This is a thread reply
+          slack-text: ${{github.run_attempt}}-${{job.status}}
           slack-optional-thread_ts: ${{ fromJson(steps.send-message.outputs.slack-result).response.message.ts }}
           #slack-optional-reply_broadcast: true # To broadcast thread reply in channel
 
