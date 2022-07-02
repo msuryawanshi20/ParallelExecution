@@ -20,7 +20,7 @@ jobs:
         with:
           slack-function: send-message
           slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
-          slack-channel: C03MDTGHDU1
+          slack-channel: C03KF4U7TSP
           slack-text: Custome Test Mess
 
       - name: Send "Slack Message" Result
