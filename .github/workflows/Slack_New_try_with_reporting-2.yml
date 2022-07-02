@@ -85,7 +85,7 @@ jobs:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ fromJson(steps.send-message.outputs.slack-result).response.channel }}
-        slack-text: Report Link: [a link to Stack Overflow](${{ steps.test-report.outputs.runHtmlUrl }})
+        slack-text: Report Link:[Junit Report](${{ steps.test-report.outputs.runHtmlUrl }})
         slack-optional-thread_ts: ${{ fromJson(steps.send-message.outputs.slack-result).response.message.ts }}
         #slack-optional-reply_broadcast: true # To broadcast thread reply in channel
 
