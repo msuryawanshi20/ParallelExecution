@@ -85,7 +85,7 @@ jobs:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ fromJson(steps.send-message.outputs.slack-result).response.channel }}
-        slack-text: JUnit Report Link-Build_Status-${{job.status}}-${{ steps.test-report.outputs.runHtmlUrl }}
+        slack-text: JUnit Report Link-${{ steps.test-report.outputs.runHtmlUrl }} -Build_Status-${{job.status}}
         slack-optional-thread_ts: ${{ fromJson(steps.send-message.outputs.slack-result).response.message.ts }}
         slack-optional-reply_broadcast: true # To broadcast thread reply in channel
 
