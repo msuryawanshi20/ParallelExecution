@@ -1,4 +1,4 @@
-name: FinalTry-usingMatrix-API Transaction
+name: FinalTry-usingMatrix-API_Transaction
 
 on: 
   workflow_dispatch:
