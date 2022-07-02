@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        Plan: ["Shop Floor","System_Setup"]  	
+        Plan: ["Shop Floor","System_Setup","T1","T2"]  	
     
     steps:
     - name: Get current date
@@ -70,12 +70,12 @@ jobs:
         xvfb-run ant -file build.xml "-DTestEnv=${{ github.event.inputs.TestEnv }}" "-DTestPlan=${{matrix.Plan}}" runtests
    
 
-    - name: Test Report
+    - name: Generate Junit Report
       uses: phoenix-actions/test-reporting@v8
       id: test-report               # Set ID reference for step
       if: success() || failure()    # run this step even if previous step failed
       with:
-        name: JEST Tests            # Name of the check run which will be created
+        name: JUnit report-${{matrix.Plan}}    # Name of the check run which will be created
         path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml    # Path to test results
         reporter: jest-junit        # Format of test results
 
@@ -85,47 +85,13 @@ jobs:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ fromJson(steps.send-message.outputs.slack-result).response.channel }}
-        slack-text: Report Link:[Junit Report](${{ steps.test-report.outputs.runHtmlUrl }})
+        slack-text: JUnit Report Link-Build_Status-${{job.status}}(${{ steps.test-report.outputs.runHtmlUrl }})
         slack-optional-thread_ts: ${{ fromJson(steps.send-message.outputs.slack-result).response.message.ts }}
-        #slack-optional-reply_broadcast: true # To broadcast thread reply in channel
+        slack-optional-reply_broadcast: true # To broadcast thread reply in channel
 
     - name: Send "Send Thread Message" Result
       run: echo "Data - ${{ steps.send-message.outputs.slack-result }}"
-
-    - name: Rename PDF File
-      if: ${{ always() }}
-      run: |
-        cd $GITHUB_WORKSPACE/ANT/Results/Artifacts/
-        mv *.pdf ${{ steps.PlanName.outputs.PlanName}}-${{ steps.date.outputs.date }}.pdf
-        echo "-----List of file After Rename-----"
-        ls -a
-        
-    - name: Upload PDF Report To Slack
-      uses: adrey/slack-file-upload-action@master
-      if: ${{ always() }}
-      with:
-       token: ${{ secrets.SLACK_TOKEN }}
-       path: ${{ github.workspace }}/ANT/Results/Artifacts/${{ steps.PlanName.outputs.PlanName}}-${{ steps.date.outputs.date }}.pdf
-       channel: provar-gitaction
-       title: PDF Report-${{matrix.Plan}}-${{ steps.date.outputs.date }}
-
-    - name: Compressing Results folder(Create Zip File)
-      if: ${{ always() }}
-      run: |
-        cd $GITHUB_WORKSPACE/ANT
-        echo "compressing Results folder"
-        zip -v -r Execution_Report_for_${{github.workflow}}_${{ steps.PlanName.outputs.PlanName}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip Results/*
-        echo "-----List of file-----"
-        ls -a
-       
-    - name: Upload Report Zip file To Slack
-      uses: adrey/slack-file-upload-action@master
-      if: ${{ always() }}
-      with:
-       token: ${{ secrets.SLACK_TOKEN }}
-       path: ${{ github.workspace }}/ANT/Execution_Report_for_${{github.workflow}}_${{ steps.PlanName.outputs.PlanName}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}.zip
-       channel: provar-gitaction   
-       
+     
     - name: Attached Report Zip file to WorkFlow
       uses: actions/upload-artifact@v2
       if: ${{ always() }}
