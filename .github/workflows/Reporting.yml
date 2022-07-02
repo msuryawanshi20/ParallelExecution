@@ -7,10 +7,12 @@ on:
         type: choice
         description: Please select Test Plan For the execution
         options: 
+        - System_Setup
         - Temp
         - Test1
         - Test2
         - Test3
+        
 
       
       TestEnv:
