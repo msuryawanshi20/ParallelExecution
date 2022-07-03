@@ -13,3 +13,5 @@ jobs:
     uses: ./.github/workflows/Flow1.yml
     with:
       TestEnv: ${{ github.event.inputs.TestEnv }}
+      secrets: inherit
+
