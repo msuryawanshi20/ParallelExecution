@@ -50,7 +50,7 @@ jobs:
     - name: Send "Slack Message" Result
       run: echo "Data - ${{ steps.send-message.outputs.slack-result }}"
 
-    - name: Execute Test Plan-${{ github.event.inputs..Plan}}
+    - name: Execute Test Plan-${{ github.event.inputs.Plan}}
       run: |
         echo "Test Plan Name Env Var--:"${{ steps.PlanName.outputs.PlanName}}
         mkdir $GITHUB_WORKSPACE/ProvarHome
