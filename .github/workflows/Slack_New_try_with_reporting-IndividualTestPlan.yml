@@ -4,8 +4,9 @@ on:
   workflow_dispatch:
     inputs:    
       Plan:
-        description: 'Enter Plan Name eg.1) Test1
+        description: 'Enter Plan Name eg.1) Test1'
         required: true    
+      
       TestEnv:
         type: choice
         description: Please select environment
