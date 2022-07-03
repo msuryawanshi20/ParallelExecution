@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        Plan: ["Accounts_Receivable","Inventory-both","Work Order-Both","POLoader","POSYDATA",]  	
+        Plan: ["Accounts_Receivable","Inventory-both","Work Order-Both","POLoader","POSYDATA"]  	
     
     steps:
     - name: Execute Test Plan-${{matrix.Plan}}
