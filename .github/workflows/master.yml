@@ -9,9 +9,20 @@ on:
         options: 
         - AutomationOrg 
 jobs:
-  call-workflow-2-in-local-repo:
+  call-workflow-1:
     uses: ./.github/workflows/Flow1.yml
     with:
       TestEnv: ${{ github.event.inputs.TestEnv }}
     secrets: inherit
+  call-workflow-2:
+    uses: ./.github/workflows/Flow2.yml
+    with:
+      TestEnv: ${{ github.event.inputs.TestEnv }}
+    secrets: inherit
+  call-workflow-3:
+    uses: ./.github/workflows/Flow3.yml
+    with:
+      TestEnv: ${{ github.event.inputs.TestEnv }}
+    secrets: inherit
+    
 
