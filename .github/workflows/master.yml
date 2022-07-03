@@ -12,4 +12,4 @@ jobs:
   call-workflow-2-in-local-repo:
     uses: ./.github/workflows/Flow1.yml
     with:
-      TestEnv: ${{ github.event.inputs.TestEnv }}	
+      TestEnv: ${{ github.event.inputs.TestEnv }}
