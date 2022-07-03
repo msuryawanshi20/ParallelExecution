@@ -1,0 +1,15 @@
+name: Master_Flow
+
+on: 
+  workflow_dispatch:
+    inputs:
+      TestEnv:
+        type: choice
+        description: Please select environment
+        options: 
+        - AutomationOrg 
+jobs:
+  call-workflow-2-in-local-repo:
+    uses: ./.github/workflows/Flow1.yml
+    with:
+      TestEnv: ${{ github.event.inputs.TestEnv }}	
