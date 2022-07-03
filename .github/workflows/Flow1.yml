@@ -19,7 +19,7 @@ jobs:
         Plan: ["Accounts_Receivable","Inventory-both","Work Order-Both","POLoader","POSYDATA",]  	
     
     steps:
-    - uses: ./.github/workflows/my-action
+    - uses: ./.github/workflows/Master_Flow
       with:
         TestEnv: ${{ inputs.TestEnv }}
     
