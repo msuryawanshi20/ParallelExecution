@@ -72,8 +72,19 @@ jobs:
         junit-path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml
         coverage-path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml
 
+    - name: Generate Junit Report
+      uses: phoenix-actions/test-reporting@v8
+      id: test-report               # Set ID reference for step
+      if: ${{ always() }}    # run this step even if previous step failed
+      with:
+        name: JUnit report-${{matrix.Plan}}    # Name of the check run which will be created
+        path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml    # Path to test results
+        reporter: jest-junit        # Format of test results
+
+
     - name: Send Thread Message
       uses: archive/github-actions-slack@master
+      if: ${{ always() }}
       with:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
@@ -83,6 +94,7 @@ jobs:
         slack-optional-reply_broadcast: true # To broadcast thread reply in channel
 
     - name: Send "Send Thread Message" Result
+      if: ${{ always() }}
       run: echo "Data - ${{ steps.send-message.outputs.slack-result }}"
      
     - name: Attached Report Zip file to WorkFlow
