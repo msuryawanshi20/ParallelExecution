@@ -67,6 +67,7 @@ jobs:
    
     - name: Junit Report
       uses: xportation/junit-coverage-report@main
+      if: ${{ always() }}
       with:
         junit-path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml
         coverage-path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml
