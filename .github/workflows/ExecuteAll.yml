@@ -2,12 +2,19 @@ name: ExecuteAll
 
 on: 
   workflow_dispatch:
-    inputs:    
+    inputs:
       TestEnv:
         type: choice
         description: Please select environment
         options: 
         - AutomationOrg 
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: 
+       PROVAR_HOME: ${{ github.workspace }}/ProvarHome
+       
     strategy:
       fail-fast: false
       matrix:
