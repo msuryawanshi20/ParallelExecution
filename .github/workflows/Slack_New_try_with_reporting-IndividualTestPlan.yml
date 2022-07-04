@@ -106,4 +106,5 @@ jobs:
         env-url: FOOBAR
         
     - name: Use URL for something
+      if: ${{ always() }} 
       run: echo "${{ env.FOOBAR }}"
