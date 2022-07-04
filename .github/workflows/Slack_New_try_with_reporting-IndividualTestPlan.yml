@@ -35,12 +35,10 @@ jobs:
       with:
         distribution: 'adopt'
         java-version: 8
-
     
     - name: Send Slack Message
       uses: archive/github-actions-slack@master
       id: send-message
-
       with:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
@@ -67,15 +65,11 @@ jobs:
         echo "Selected Environment is="${{ github.event.inputs.TestEnv }}
         xvfb-run ant -file build.xml "-DTestEnv=${{ github.event.inputs.TestEnv }}" "-DTestPlan=${{ github.event.inputs.Plan}}" runtests
    
-
-    - name: Generate Junit Report
-      uses: phoenix-actions/test-reporting@v8
-      id: test-report               # Set ID reference for step
-      if: success() || failure()    # run this step even if previous step failed
+    - name: Junit Report
+      uses: xportation/junit-coverage-report@main
       with:
-        name: JUnit report-${{ github.event.inputs.Plan}}    # Name of the check run which will be created
-        path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml    # Path to test results
-        reporter: jest-junit        # Format of test results
+        junit-path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml
+        coverage-path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml
 
     - name: Send Thread Message
       uses: archive/github-actions-slack@master
