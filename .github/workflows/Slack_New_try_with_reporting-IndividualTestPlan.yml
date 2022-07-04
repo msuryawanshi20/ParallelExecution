@@ -103,3 +103,7 @@ jobs:
       with:
         name: Execution_Report_for_${{github.workflow}}_${{ github.event.inputs.Plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}
         path: ${{ github.workspace }}/ANT/Results/*
+        env-url: FOOBAR
+        
+    - name: Use URL for something
+      run: echo "${{ env.FOOBAR }}"

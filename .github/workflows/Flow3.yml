@@ -1,14 +1,12 @@
-name: Flow3
+name: Flow1
 
 on: 
-  workflow_dispatch:
+  workflow_call:
     inputs:
       TestEnv:
-        type: choice
-        description: Please select environment
-        options: 
-        - AutomationOrg 
- 
+        required: true
+        type: string
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,6 +19,7 @@ jobs:
         Plan: ["Shop Floor","SOAPI","SYDATA-Sales_Order","System_Setup"]  	
     
     steps:
+        
     - name: Get current date
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H_%M_%S')"
