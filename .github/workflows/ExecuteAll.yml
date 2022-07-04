@@ -28,7 +28,7 @@ jobs:
     - name: Set Plan Name
       id: PlanName
       run: |
-        temp="${{ github.event.inputs.Plan}}"	
+        temp="${{matrix.Plan}}"	
         echo "::set-output name=PlanName::$(echo ${temp// /_})"    
 
     - uses: actions/checkout@v2
@@ -50,7 +50,7 @@ jobs:
     - name: Send "Slack Message" Result
       run: echo "Data - ${{ steps.send-message.outputs.slack-result }}"
 
-    - name: Execute Test Plan-${{ github.event.inputs.Plan}}
+    - name: Execute Test Plan-${{matrix.Plan}}
       run: |
         echo "Test Plan Name Env Var--:"${{ steps.PlanName.outputs.PlanName}}
         mkdir $GITHUB_WORKSPACE/ProvarHome
@@ -63,16 +63,16 @@ jobs:
         sudo apt-get -y install google-chrome-stable
         echo $PROVAR_HOME
         cd $GITHUB_WORKSPACE/ANT
-        echo "Selected Plan Name="${{ github.event.inputs.Plan}}
-        echo "Selected Environment is="${{ github.event.inputs.TestEnv }}
-        xvfb-run ant -file build.xml "-DTestEnv=${{ github.event.inputs.TestEnv }}" "-DTestPlan=${{ github.event.inputs.Plan}}" runtests
+        echo "Selected Plan Name="${{matrix.Plan}}
+        echo "Selected Environment is="${{matrix.Plan}}
+        xvfb-run ant -file build.xml "-DTestEnv=${{ github.event.inputs.TestEnv }}" "-DTestPlan=${{matrix.Plan}}" runtests
         
     - name: Generate Junit Report
       uses: phoenix-actions/test-reporting@v8
       id: test-report               # Set ID reference for step
       if: ${{ success() }}   # run this step even if previous step failed
       with:
-        name: JUnit report-${{ github.event.inputs.Plan}}    # Name of the check run which will be created
+        name: JUnit report-${{matrix.Plan}}    # Name of the check run which will be created
         path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml    # Path to test results
         reporter: jest-junit        # Format of test results
 
@@ -108,7 +108,7 @@ jobs:
       uses: actions/upload-artifact@v2
       if: ${{ always() }}
       with:
-        name: Execution_Report_for_${{github.workflow}}_${{ github.event.inputs.Plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}
+        name: Execution_Report_for_${{github.workflow}}_${{matrix.Plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}
         path: ${{ github.workspace }}/ANT/Results/*
 
     - name: Send execution Completion Notification
@@ -118,6 +118,6 @@ jobs:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ fromJson(steps.send-message.outputs.slack-result).response.channel }}
-        slack-text: Execution Completed For Test Plan-${{ github.event.inputs.Plan}}-Execution_Status-${{job.status}}
+        slack-text: Execution Completed For Test Plan-${{matrix.Plan}}-Execution_Status-${{job.status}}
         slack-optional-thread_ts: ${{ fromJson(steps.send-message.outputs.slack-result).response.message.ts }}
         slack-optional-reply_broadcast: true # To broadcast thread reply in channel
