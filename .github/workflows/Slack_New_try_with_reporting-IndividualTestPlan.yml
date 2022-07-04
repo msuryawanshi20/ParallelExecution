@@ -81,6 +81,11 @@ jobs:
         path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml    # Path to test results
         reporter: jest-junit        # Format of test results
 
+    - name: Publish Test Report
+      uses: mikepenz/action-junit-report@v3
+      if: always() # always run even if the previous step fails
+      with:
+        report_paths: '${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml'
 
     - name: Send Thread Message
       uses: archive/github-actions-slack@master
@@ -103,8 +108,3 @@ jobs:
       with:
         name: Execution_Report_for_${{github.workflow}}_${{ github.event.inputs.Plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}
         path: ${{ github.workspace }}/ANT/Results/*
-        env-url: FOOBAR
-        
-    - name: Use URL for something
-      if: ${{ always() }} 
-      run: echo "${{ env.FOOBAR }}"
