@@ -16,10 +16,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        Plan: ["Inventory-both","Work Order-Both","Recurring Billing","RMA","Shop Floor","System_Setup"]
+   
     steps:
     - name: Add markdown
       run: | 
@@ -48,3 +45,6 @@ jobs:
         echo "|   @robherley        |              4             |     13          |       4       |   [${{matrix.Plan}}]()      |" >> $GITHUB_STEP_SUMMARY
         echo "|   @pfleidi          |              3             |     2           |       8       |   [${{matrix.Plan}}]()      |" >> $GITHUB_STEP_SUMMARY
         echo "|   @konradpabjan     |              1             |     1           |       0       |   [${{matrix.Plan}}]()      |" >> $GITHUB_STEP_SUMMARY
+    - name: Adding markdown
+      run: |
+        echo "GitHub actor name" $GITHUB_ACTOR 
