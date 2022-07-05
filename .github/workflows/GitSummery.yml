@@ -37,8 +37,6 @@ jobs:
         echo "If things go :fire:" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "|[:bangbang:  Rollback](https://github.com/)| [:pager:  Status]()|" >> $GITHUB_STEP_SUMMARY
-        echo "[${{GITHUB_ACTOR}}]">>$GITHUB_STEP_SUMMARY
-        
         echo "|---|---|" >> $GITHUB_STEP_SUMMARY
 
     - name: Adding markdown
