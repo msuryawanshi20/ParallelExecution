@@ -29,7 +29,9 @@ jobs:
         echo "- [Deployment confidence dashboard]()" >> $GITHUB_STEP_SUMMARY
         echo "- [Incoming Alerts]()" >> $GITHUB_STEP_SUMMARY
         echo "- [On-Call Engineers]()" >> $GITHUB_STEP_SUMMARY
-        echo "- [Executed by]" >> $GITHUB_STEP_SUMMARY
+        echo "- [Executed by]"$GITHUB_ACTOR >> $GITHUB_STEP_SUMMARY
+        echo "- [GitHub actor name]$GITHUB_ACTOR " >> $GITHUB_STEP_SUMMARY
+        
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "If things go :fire:" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
@@ -47,4 +49,3 @@ jobs:
         echo "|   @konradpabjan     |              1             |     1           |       0       |   [${{matrix.Plan}}]()      |" >> $GITHUB_STEP_SUMMARY
     - name: Adding markdown
       run: |
-        echo "GitHub actor name" $GITHUB_ACTOR 
