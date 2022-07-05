@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        Plan: ["Accounts_Receivable","Inventory-both","Work Order-Both","POLoader","POSYDATA","Purchase_Order","Recurring Billing","Requisition","RMA","Sales Orders","Shop Floor","SOAPI","SYDATA-Sales_Order","System_Setup"]
+        Plan: ["Inventory-both","Work Order-Both","Recurring Billing","RMA","Shop Floor","System_Setup"]
     
     steps:
     - name: Get current date
