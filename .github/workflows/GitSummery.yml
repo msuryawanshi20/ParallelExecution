@@ -16,7 +16,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-   
+    strategy:
+      fail-fast: false
+      matrix:
+        Plan: ["Inventory-both","Work Order-Both","Recurring Billing","RMA","Shop Floor","System_Setup"]   
     steps:
     - name: Add markdown
       run: | 
@@ -31,7 +34,6 @@ jobs:
         echo "- [On-Call Engineers]()" >> $GITHUB_STEP_SUMMARY
         echo "- [Executed by]"$GITHUB_ACTOR >> $GITHUB_STEP_SUMMARY
         echo "- [GitHub actor name]$GITHUB_ACTOR " >> $GITHUB_STEP_SUMMARY
-        
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "If things go :fire:" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
@@ -53,8 +55,10 @@ jobs:
       id: jobs
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        job_name: build
+        job_name: ${{matrix.Plan}}
         per_page: 30
 
     - name: Output Current Job Log URL
-      run: echo ${{ steps.jobs.outputs.html_url }}
+      run: |
+        echo "::set-output name=URL::${{ steps.jobs.outputs.html_url }}"
+        echo "${{matrix.Plan}}-JOB URL IS- ${{ steps.jobs.outputs.html_url }}"
