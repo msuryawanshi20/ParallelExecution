@@ -32,7 +32,7 @@ jobs:
         echo "- [Deployment confidence dashboard]()" >> $GITHUB_STEP_SUMMARY
         echo "- [Incoming Alerts]()" >> $GITHUB_STEP_SUMMARY
         echo "- [On-Call Engineers]()" >> $GITHUB_STEP_SUMMARY
-        echo "- [Executed by]${{GITHUB_ACTOR}}" >> $GITHUB_STEP_SUMMARY
+        echo "- [Executed by]" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "If things go :fire:" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
