@@ -25,17 +25,11 @@ jobs:
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H_%M_%S')"
 
-    - name: Remove space from Test Plan
+    - name: Remove space and other special characters from Test Plan Name
       id: PlanName
       run: |
         temp="${{matrix.Plan}}"	
-        echo "::set-output name=PlanName::$(echo ${temp// /_})"    
-
-    - name: Remove forward slash from Test Plan
-      id: PlanName
-      run: |
-        temp="${{ steps.PlanName.outputs.PlanName}}"	
-        echo "::set-output name=PlanName::$(echo ${temp/\//_)"       
+        echo "::set-output name=PlanName::$(echo ${temp//[^[:alnum:]]/})" 
 
     - uses: actions/checkout@v2
     - name: Set up JDK 8
