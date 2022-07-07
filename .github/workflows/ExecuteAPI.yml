@@ -21,7 +21,6 @@ jobs:
         Plan: ["API-Transaction/Inventory","API-Transaction/Purchase Order","API-Transaction/Sales Order","API-Transaction/Work Order"]
     
     steps:
-    
     - name: Get current date
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H_%M_%S')"
@@ -35,8 +34,7 @@ jobs:
     - name: Remove forward slash from Test Plan
       id: PlanName
       run: |
-        temp="${{ steps.TestPlanName.outputs.TestPlanName}}"
-        echo "$temp"
+        temp="${{ steps.TestPlanName.outputs.TestPlanName}}"	
         echo "::set-output name=PlanName::$(echo ${temp/\//-})" 
         
     - uses: actions/checkout@v2
@@ -53,7 +51,7 @@ jobs:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: C03KF4U7TSP
-        slack-text: Execution Started for Test Plan ${{ steps.PlanName.outputs.PlanName}} at ${{ steps.date.outputs.date }}
+        slack-text: Execution Started for Test Plan "*${{ steps.PlanName.outputs.PlanName}}*" at "*${{ steps.date.outputs.date }}*"
 
     - name: Send "Slack Message" Result
       run: echo "Data - ${{ steps.send-message.outputs.slack-result }}"
@@ -80,7 +78,7 @@ jobs:
       id: test-report               # Set ID reference for step
       if: ${{ success() }}   # run this step even if previous step failed
       with:
-        name: JUnit report-${{matrix.Plan}}    # Name of the check run which will be created
+        name: JUnit report-${{ steps.PlanName.outputs.PlanName}}    # Name of the check run which will be created
         path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml    # Path to test results
         reporter: jest-junit        # Format of test results
 
@@ -91,7 +89,7 @@ jobs:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ fromJson(steps.send-message.outputs.slack-result).response.channel }}
-        slack-text: JUnit Report Link-${{ steps.test-report.outputs.runHtmlUrl }} -Build_Status-${{job.status}}
+        slack-text: JUnit Report Link-"*${{ steps.test-report.outputs.runHtmlUrl }}*" -Build_Status-"*${{job.status}}*"
         slack-optional-thread_ts: ${{ fromJson(steps.send-message.outputs.slack-result).response.message.ts }}
         slack-optional-reply_broadcast: true # To broadcast thread reply in channel
      
@@ -126,6 +124,6 @@ jobs:
         slack-function: send-message
         slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
         slack-channel: ${{ fromJson(steps.send-message.outputs.slack-result).response.channel }}
-        slack-text: Execution Completed For Test Plan-${{matrix.Plan}}-Execution_Status-${{job.status}}
+        slack-text: Execution Completed For Test Plan-"*${{matrix.Plan}}*"-Execution_Status-"*${{job.status}}*"
         slack-optional-thread_ts: ${{ fromJson(steps.send-message.outputs.slack-result).response.message.ts }}
         slack-optional-reply_broadcast: true # To broadcast thread reply in channel
