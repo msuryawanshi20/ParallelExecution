@@ -78,7 +78,7 @@ jobs:
       id: test-report               # Set ID reference for step
       if: ${{ success() }}   # run this step even if previous step failed
       with:
-        name: JUnit report-${{matrix.Plan}}    # Name of the check run which will be created
+        name: JUnit report-${{ steps.PlanName.outputs.PlanName}}    # Name of the check run which will be created
         path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml    # Path to test results
         reporter: jest-junit        # Format of test results
 

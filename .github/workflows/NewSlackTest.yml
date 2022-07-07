@@ -21,7 +21,7 @@ jobs:
         with:
           slack-bot-user-oauth-access-token: ${{ secrets.SLACK_TOKEN }}
           slack-channel: C03KF4U7TSP 
-          slack-text: Hello! Something is burning! Or not...
+          slack-text: Hello! *Something is burning! Or not...*
           slack-optional-icon_emoji: ":fire:"
           slack-optional-as_user: false
       - name: Result from "Send Message"
