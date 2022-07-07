@@ -35,7 +35,8 @@ jobs:
     - name: Remove forward slash from Test Plan
       id: PlanName
       run: |
-        temp="${{ steps.TestPlanName.outputs.TestPlanName}}"	
+        temp="${{ steps.TestPlanName.outputs.TestPlanName}}"
+        echo "$temp"
         echo "::set-output name=PlanName::$(echo ${temp/\//_)" 
         
     - uses: actions/checkout@v2
