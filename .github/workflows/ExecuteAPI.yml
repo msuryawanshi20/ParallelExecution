@@ -37,7 +37,7 @@ jobs:
       run: |
         temp="${{ steps.TestPlanName.outputs.TestPlanName}}"
         echo "$temp"
-        echo "::set-output name=PlanName::$(echo ${temp/\//_)" 
+        echo "::set-output name=PlanName::$(echo ${temp/\//-})" 
         
     - uses: actions/checkout@v2
     - name: Set up JDK 8
