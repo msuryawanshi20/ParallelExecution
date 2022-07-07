@@ -25,11 +25,18 @@ jobs:
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H_%M_%S')"
 
-    - name: Remove space and other special characters from Test Plan Name
+    - name: Set Plan Name
+    - name: Remove space from Test Plan
       id: PlanName
       run: |
         temp="${{matrix.Plan}}"	
-        echo "::set-output name=PlanName::$(echo ${temp//[^[:alnum:]]/})" 
+        echo "::set-output name=PlanName::$(echo ${temp// /_})"
+        
+    - name: Remove forward slash from Test Plan
+      id: PlanName
+      run: |
+        temp="${{ steps.PlanName.outputs.PlanName}}"	
+        echo "::set-output name=PlanName::$(echo ${temp/\//-)"
 
     - uses: actions/checkout@v2
     - name: Set up JDK 8
@@ -108,7 +115,7 @@ jobs:
       uses: actions/upload-artifact@v2
       if: ${{ always() }}
       with:
-        name: Execution_Report_for_${{github.workflow}}_${{matrix.Plan}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}
+        name: Execution_Report_for_${{github.workflow}}_${{ steps.PlanName.outputs.PlanName}}-${{ steps.date.outputs.date }}_${{github.run_attempt}}-${{job.status}}
         path: ${{ github.workspace }}/ANT/Results/*
 
     - name: Send execution Completion Notification
