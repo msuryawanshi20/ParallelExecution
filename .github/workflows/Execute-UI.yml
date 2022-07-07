@@ -25,7 +25,6 @@ jobs:
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H_%M_%S')"
 
-    - name: Set Plan Name
     - name: Remove space from Test Plan
       id: PlanName
       run: |
@@ -36,7 +35,7 @@ jobs:
       id: PlanName
       run: |
         temp="${{ steps.PlanName.outputs.PlanName}}"	
-        echo "::set-output name=PlanName::$(echo ${temp/\//-)"
+        echo "::set-output name=PlanName::$(echo ${temp/\//-)" 
 
     - uses: actions/checkout@v2
     - name: Set up JDK 8
