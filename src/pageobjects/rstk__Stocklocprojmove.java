@@ -6,9 +6,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.provar.core.testapi.annotations.*;
+import com.provar.core.testapi.annotations.ButtonType;
+import com.provar.core.testapi.annotations.ChoiceListType;
+import com.provar.core.testapi.annotations.FindByLabel;
+import com.provar.core.testapi.annotations.PageWaitAfter;
+import com.provar.core.testapi.annotations.SalesforcePage;
+import com.provar.core.testapi.annotations.TestLogger;
+import com.provar.core.testapi.annotations.TextType;
 
 @SalesforcePage(title = "Rstk__ Stocklocprojmove", summary = "", page = "Stocklocprojmove", namespacePrefix = "rstk", object = "rstk__locadd__c", connection = "QARSF_Admin")
 public class rstk__Stocklocprojmove {
@@ -83,6 +91,8 @@ public class rstk__Stocklocprojmove {
 	}
 
 	public void setToChargeCode(String chargeCode) throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+
 		Thread.sleep(2000);
 
 		WebElement ele;
@@ -98,6 +108,7 @@ public class rstk__Stocklocprojmove {
 
 		}
 
+		wait.until(ExpectedConditions.elementToBeClickable(ele));
 		Select dropdown = new Select(ele);
 		dropdown.selectByVisibleText(chargeCode);
 
@@ -168,6 +179,7 @@ public class rstk__Stocklocprojmove {
 
 	public void setFromChargeCode(String chargeCode) throws InterruptedException {
 		Thread.sleep(2000);
+		WebDriverWait wait = new WebDriverWait(driver, 30);
 
 		WebElement ele;
 		if (Lot != null) {
@@ -182,6 +194,7 @@ public class rstk__Stocklocprojmove {
 					+ "')]/parent::td/parent::tr/parent::tbody/parent::table/preceding-sibling::div/descendant::table[4]//td[2]//select"));
 		}
 
+		wait.until(ExpectedConditions.elementToBeClickable(ele));
 		Select dropdown = new Select(ele);
 		dropdown.selectByVisibleText(chargeCode);
 
