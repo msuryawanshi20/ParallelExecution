@@ -17,7 +17,7 @@
 							resultsPath="${testproject.results}" 
 							resultsPathDisposition="Increment" 
 							testEnvironment="${TestEnv}" 
-							webBrowser="${Browser}" 
+							webBrowser="Chrome" 
 							webBrowserConfiguration="Full Screen"
 							webBrowserProviderName="Desktop"
 							webBrowserDeviceName="Full Screen" 
