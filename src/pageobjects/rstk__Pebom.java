@@ -12,7 +12,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.provar.core.testapi.annotations.BooleanType;
 import com.provar.core.testapi.annotations.ButtonType;
+import com.provar.core.testapi.annotations.ChoiceListType;
 import com.provar.core.testapi.annotations.FindByLabel;
 import com.provar.core.testapi.annotations.SalesforcePage;
 import com.provar.core.testapi.annotations.TestLogger;
@@ -100,5 +102,25 @@ public class rstk__Pebom {
 		}
 
 	}
+
+	@TextType()
+	@FindBy(xpath = "//label[normalize-space(.)='Line Number']/parent::span/parent::th/following-sibling::td//input")
+	public WebElement lineNumber;
+
+	@BooleanType()
+	@FindBy(xpath = "//td//td/span/span/input")
+	public WebElement fixedQuantity;
+
+	@ChoiceListType()
+	@FindBy(xpath = "//label[normalize-space(.)='Phantom Override']/parent::span/parent::th/following-sibling::td//select")
+	public WebElement Phantom_Override;
+
+	@ButtonType()
+	@FindByLabel(label = "Edit")
+	public WebElement edit;
+
+	@ButtonType()
+	@FindByLabel(label = "Delete")
+	public WebElement delete;
 
 }
