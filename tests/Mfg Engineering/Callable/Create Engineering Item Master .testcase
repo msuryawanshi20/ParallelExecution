@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testCase failureBehaviour="Inherit" id="0" registryId="51cbe2c4-534c-4d2f-a77f-9d7fe3383ad3" visibility="Internal">
+<testCase failureBehaviour="Inherit" id="0" visibility="Internal">
   <summary/>
   <steps>
     <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.ApexConnect" name="ApexConnect" testItemId="1" title="Salesforce Connect: SFConnection (Test)">
