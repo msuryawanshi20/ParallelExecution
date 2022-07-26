@@ -28,6 +28,8 @@
 							pluginOutputlevel="SEVERE"
 							stopTestRunOnError="false"
 							invokeTestRunMonitor="true"
+							testCyclePath="${testcycle.path}"
+							testCycleRunType="FAILURES_AND_SKIPPED"
 							>
 
 			<fileset id="testplan" dir="../plans/${TestPlan}"></fileset>
