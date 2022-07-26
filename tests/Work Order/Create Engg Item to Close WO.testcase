@@ -238,7 +238,7 @@
       <clauses>
         <clause name="substeps" testItemId="3">
           <steps>
-            <caseCall testCaseId="51cbe2c4-534c-4d2f-a77f-9d7fe3383ad3" testCasePath="tests/Mfg Engineering/Callable/Create Engineering Item Master .testcase" testItemId="4">
+            <caseCall testCaseId="f34ddb54-1e05-4562-80ec-8b5b50cad8b3" testCasePath="tests/Mfg Engineering/Callable/Create Engineering Item Master.testcase" testItemId="4">
               <arguments>
                 <argument id="reuseConnectionName">
                   <value class="value" valueClass="string">SFConnection</value>
@@ -1329,7 +1329,7 @@
               <clauses>
                 <clause name="then" testItemId="24">
                   <steps>
-                    <caseCall testCaseId="ed7273a7-ab1b-4f9e-9dfb-9c2530aedd7a" testCasePath="tests/Mfg Engineering/Callable/Change Engineering Revision Status.testcase" testItemId="25">
+                    <caseCall testCaseId="ac0a42e2-e440-478a-94de-87b4192ed874" testCasePath="tests/Mfg Engineering/Callable/Change Engineering Revision Status.testcase" testItemId="25">
                       <arguments>
                         <argument id="reuseConnectionName">
                           <value class="value" valueClass="string">SFConnection</value>
@@ -1587,7 +1587,7 @@
                 </clause>
               </clauses>
             </apiCall>
-            <caseCall testCaseId="ed7273a7-ab1b-4f9e-9dfb-9c2530aedd7a" testCasePath="tests/Mfg Engineering/Callable/Change Engineering Revision Status.testcase" testItemId="155">
+            <caseCall testCaseId="ac0a42e2-e440-478a-94de-87b4192ed874" testCasePath="tests/Mfg Engineering/Callable/Change Engineering Revision Status.testcase" testItemId="155">
               <arguments>
                 <argument id="reuseConnectionName">
                   <value class="value" valueClass="string">SFConnection</value>
