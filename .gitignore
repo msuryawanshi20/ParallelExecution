@@ -2,3 +2,4 @@
 /bin/
 /ANT/Result*
 .provarCaches
+*TestCycle/*
