@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        Plan: ["UI Transactions/Inventory","UI Transactions/Purchase Order","UI Transactions/Sales Order","UI Transactions/Work Order"]
+        Plan: ["UI Transactions/CPQ and Contract","UI Transactions/Inventory","UI Transactions/Purchase Order","UI Transactions/RMA","UI Transactions/Sales Order","UI Transactions/Shop Floor","UI Transactions/System Setup","UI Transactions/Work Order"]
     
     steps:
     - name: Get current date

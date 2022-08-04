@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        Plan: ["API-Transaction/Inventory","API-Transaction/Purchase Order","API-Transaction/Sales Order","API-Transaction/Work Order"]
+        Plan: ["API-Transaction/Inventory","API-Transaction/Purchase Order","API-Transaction/Sales Order","API-Transaction/SOAPI","API-Transaction/SYDATA - Sales Orders","API-Transaction/Work Order"]
     
     steps:
     - name: Get current date

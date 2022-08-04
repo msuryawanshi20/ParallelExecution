@@ -273,7 +273,7 @@
       <clauses>
         <clause name="hidden" testItemId="24">
           <steps>
-            <caseCall testCaseId="392bc300-ca28-44d9-abbf-f089615d1122" testCasePath="tests/Sales Order - RSTKLUI/Callable/Sales Order Fulfillment - Consolidated.testcase" testItemId="81">
+            <caseCall testCaseId="392bc300-ca28-44d9-abbf-f089615d1122" testCasePath="tests/Sales Order Setup/Sales Order - RSTKLUI/Callable/Sales Order Fulfillment - Consolidated.testcase" testItemId="81">
               <arguments>
                 <argument id="reuseConnectionName">
                   <value class="value" valueClass="string">SFConnection</value>
@@ -316,7 +316,7 @@
       <clauses>
         <clause name="hidden" testItemId="149">
           <steps>
-            <caseCall testCaseId="9dc823f5-0722-4e32-9bd2-5bdbac75a965" testCasePath="tests/Sales Order - RSTKLUI/Callable/Verify and Approve SO Invoice.testcase" testItemId="150">
+            <caseCall testCaseId="9dc823f5-0722-4e32-9bd2-5bdbac75a965" testCasePath="tests/Sales Order Setup/Sales Order - RSTKLUI/Callable/Verify and Approve SO Invoice.testcase" testItemId="150">
               <arguments>
                 <argument id="reuseConnectionName">
                   <value class="value" valueClass="string">SFConnection</value>
