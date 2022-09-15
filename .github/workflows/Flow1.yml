@@ -79,13 +79,8 @@ jobs:
       with:
          report_paths: '${{ github.workspace }}/ANT/Results/JUnit html/TEST*.xml'    # Path to test results 
 
-    - name: Execute Test Plan-${{matrix.Plan}}
-      run: |
-        echo "Total Count"${{steps.{test-report1}.outputs.total}}
-        echo "Total Count"${{steps.{test-report1}.outputs.passed}}
-        echo "Total Count"${{steps.{test-report1}.outputs.failed}}
-        echo "Total Count"${{steps.{test-report1}.outputs.skipped}}
-
+    - name: Surefire Report
+      uses: ScaCap/action-surefire-report@v1.0.5
         
     - name: Send Thread Message
       uses: archive/github-actions-slack@master
