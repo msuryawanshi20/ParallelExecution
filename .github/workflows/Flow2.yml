@@ -1,4 +1,4 @@
-name: Flow2
+name: Flow1
 
 on: 
   workflow_call:
@@ -72,15 +72,25 @@ jobs:
         echo "Selected Environment is="${{ github.event.inputs.TestEnv }}
         xvfb-run ant -file build.xml "-DTestEnv=default" "-DTestPlan=Regression_API/${{matrix.Plan}}" runtests
    
-    - name: Generate Junit Report
-      uses: phoenix-actions/test-reporting@v8
-      id: test-report               # Set ID reference for step
-      if: success() || failure()    # run this step even if previous step failed
+    - name: Publish Test Report NEW TRY
+      uses: mikepenz/action-junit-report@v3
+      id: test-report1
+      if: always() # always run even if the previous step fails
       with:
-        name: JUnit report-${{matrix.Plan}}    # Name of the check run which will be created
-        path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml    # Path to test results
-        reporter: jest-junit        # Format of test results
+         report_paths: '${{ github.workspace }}/ANT/Results/JUnit html/TEST*.xml'    # Path to test results 
 
+    - name: Execute Test Plan-${{matrix.Plan}}
+      run: |
+        echo "Total Count"${{steps.{test-report1}.outputs.total}}
+        echo "Total Count"${{steps.{test-report1}.outputs.passed}}
+        echo "Total Count"${{steps.{test-report1}.outputs.failed}}
+        echo "Total Count"${{steps.{test-report1}.outputs.skipped}}
+        
+        echo "Total Count"${{steps.test-report1.outputs.total}}
+        echo "Total Count"${{steps.test-report1.outputs.passed}}
+        echo "Total Count"${{steps.test-report1.outputs.failed}}
+        echo "Total Count"${{steps.test-report1.outputs.skipped}}
+        
     - name: Send Thread Message
       uses: archive/github-actions-slack@master
       with:
