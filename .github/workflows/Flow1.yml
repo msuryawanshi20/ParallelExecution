@@ -78,7 +78,15 @@ jobs:
       if: always() # always run even if the previous step fails
       with:
          report_paths: '${{ github.workspace }}/ANT/Results/JUnit html/TEST*.xml'    # Path to test results 
-
+         check_name: New REPORT
+         fail_on_failure: false
+         require_tests: false
+         include_passed: true
+         check_retries: false
+         job_summary: true
+         detailed_summary: true
+         annotate_notice: false        
+         
     - name: Surefire Report
       uses: ScaCap/action-surefire-report@v1.0.5
       with:
