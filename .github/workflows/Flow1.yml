@@ -81,12 +81,12 @@ jobs:
         path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml    # Path to test results
         reporter: jest-junit        # Format of test results
 
-    - name: Upload Test Report
-      uses: actions/upload-artifact@v3
+    - name: Publish Test Report NEW TRY
+      uses: mikepenz/action-junit-report@v3
+      id: test-report1
       if: always() # always run even if the previous step fails
       with:
-        name: JUnit report-${{matrix.Plan}}    # Name of the check run which will be created
-        path: ${{ github.workspace }}/ANT/Results/JUnit html/TESTS-TestSuites.xml    # Path to test results
+         report_paths: '${{ github.workspace }}/ANT/Results/JUnit html/TEST*.xml'    # Path to test results
 
     - name: OutPut
       run: |
@@ -94,6 +94,11 @@ jobs:
         echo "Total Passed"${{steps.{CHANGELOG_STEP_ID}.outputs.passed}}
         echo "Total Passed"${{steps.{CHANGELOG_STEP_ID}.outputs.skipped}}
         echo "Total Passed"${{steps.{CHANGELOG_STEP_ID}.outputs.failed}}
+        echo "Total Count"${{steps.test-report1.outputs.total}}
+        echo "Total Passed"${{steps.test-report1.outputs.passed}}
+        echo "Total Passed"${{steps.test-report1.outputs.skipped}}
+        echo "Total Passed"${{steps.test-report1.outputs.failed}}        
+        
 
     - name: Send Thread Message
       uses: archive/github-actions-slack@master
