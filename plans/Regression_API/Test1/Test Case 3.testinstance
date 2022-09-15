@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testPlanInstance testCasePath="tests/PO_SYDATA/RSTK-9180-SYDATA-Close PO AP Batch.testcase">
+<testPlanInstance testCasePath="tests/TestFailure/Test Case 3.testcase">
   <planSettings/>
   <planFeatures/>
 </testPlanInstance>
