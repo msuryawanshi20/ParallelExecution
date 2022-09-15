@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        Plan: ["Accounts_Receivable","Inventory-both","Work Order-Both","POLoader","POSYDATA"]  	
+        Plan: ["Test1",Test2]  	
     
     steps:
     - name: Execute Test Plan-${{matrix.Plan}}
@@ -69,7 +69,7 @@ jobs:
         cd $GITHUB_WORKSPACE/ANT
         echo "Selected Plan Name="${{matrix.Plan}}
         echo "Selected Environment is="${{ github.event.inputs.TestEnv }}
-        xvfb-run ant -file build.xml "-DTestEnv=${{ github.event.inputs.TestEnv }}" "-DTestPlan=${{matrix.Plan}}" runtests
+        xvfb-run ant -file build.xml "-DTestEnv=default" "-DTestPlan=Regression_API/${{matrix.Plan}}" runtests
    
 
     - name: Generate Junit Report
