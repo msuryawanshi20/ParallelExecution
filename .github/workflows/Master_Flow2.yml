@@ -1,0 +1,25 @@
+name: Master_Flow2
+
+on: 
+  workflow_dispatch:
+    inputs:
+      TestEnv:
+        type: choice
+        description: Please select environment
+        options: 
+        - AutomationOrg 
+jobs:
+  call-workflow-1:
+    name: WorkFlow-1
+    uses: ./.github/workflows/Child-1.yml
+    with:
+      TestEnv: ${{ github.event.inputs.TestEnv }}
+    secrets: inherit
+  call-workflow-2:
+    name: WorkFlow-2
+    if: ${{ always() }}  
+    needs: call-workflow-1
+    uses: ./.github/workflows/Child-2.yml
+    with:
+      TestEnv: ${{ github.event.inputs.TestEnv }}
+    secrets: inherit
