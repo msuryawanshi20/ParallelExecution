@@ -67,11 +67,11 @@ jobs:
         sudo apt-get -y install google-chrome-stable
         echo $PROVAR_HOME
         cd $GITHUB_WORKSPACE/ANT
+        echo "Work SPace Path:::"${{ github.workspace }}
         echo "Selected Plan Name="${{matrix.Plan}}
         echo "Selected Environment is="${{ github.event.inputs.TestEnv }}
         xvfb-run ant -file build.xml "-DTestEnv=default" "-DTestPlan=Regression_API/${{matrix.Plan}}" runtests
    
-
     - name: Generate Junit Report
       uses: phoenix-actions/test-reporting@v8
       id: test-report               # Set ID reference for step
