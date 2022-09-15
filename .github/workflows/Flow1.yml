@@ -86,19 +86,7 @@ jobs:
       id: test-report1
       if: always() # always run even if the previous step fails
       with:
-         report_paths: '${{ github.workspace }}/ANT/Results/JUnit html/TEST*.xml'    # Path to test results
-
-    - name: OutPut
-      run: |
-        echo "Total Count"${{steps.{CHANGELOG_STEP_ID}.outputs.total}}
-        echo "Total Passed"${{steps.{CHANGELOG_STEP_ID}.outputs.passed}}
-        echo "Total Passed"${{steps.{CHANGELOG_STEP_ID}.outputs.skipped}}
-        echo "Total Passed"${{steps.{CHANGELOG_STEP_ID}.outputs.failed}}
-        echo "Total Count"${{steps.test-report1.outputs.total}}
-        echo "Total Passed"${{steps.test-report1.outputs.passed}}
-        echo "Total Passed"${{steps.test-report1.outputs.skipped}}
-        echo "Total Passed"${{steps.test-report1.outputs.failed}}        
-        
+         report_paths: '${{ github.workspace }}/ANT/Results/JUnit html/TEST*.xml'    # Path to test results 
 
     - name: Send Thread Message
       uses: archive/github-actions-slack@master
