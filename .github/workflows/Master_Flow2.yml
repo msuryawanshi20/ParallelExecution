@@ -11,7 +11,7 @@ on:
 jobs:
   call-workflow-1:
     name: WorkFlow-1
-    uses: ./.github/workflows/Child-1.yml
+    uses: ./.github/workflows/callable1.yml
     with:
       TestEnv: ${{ github.event.inputs.TestEnv }}
     secrets: inherit
@@ -19,7 +19,7 @@ jobs:
     name: WorkFlow-2
     if: ${{ always() }}  
     needs: call-workflow-1
-    uses: ./.github/workflows/Child-2.yml
+    uses: ./.github/workflows/callable2.yml
     with:
       TestEnv: ${{ github.event.inputs.TestEnv }}
     secrets: inherit
