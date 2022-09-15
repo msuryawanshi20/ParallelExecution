@@ -144,12 +144,5 @@
         </apiParam>
       </generatedParameters>
     </apiCall>
-    <apiCall apiId="com.provar.plugins.bundled.apis.control.Fail" name="Fail" testItemId="168" title="Fail Test: Test fail 1">
-      <arguments>
-        <argument id="message">
-          <value class="value" valueClass="string">Test fail 1</value>
-        </argument>
-      </arguments>
-    </apiCall>
   </steps>
 </testCase>
