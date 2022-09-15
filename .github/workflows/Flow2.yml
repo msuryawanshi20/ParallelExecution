@@ -86,11 +86,6 @@ jobs:
         echo "Total Count"${{steps.{test-report1}.outputs.failed}}
         echo "Total Count"${{steps.{test-report1}.outputs.skipped}}
         
-        echo "Total Count"${{steps.test-report1.outputs.total}}
-        echo "Total Count"${{steps.test-report1.outputs.passed}}
-        echo "Total Count"${{steps.test-report1.outputs.failed}}
-        echo "Total Count"${{steps.test-report1.outputs.skipped}}
-        
     - name: Send Thread Message
       uses: archive/github-actions-slack@master
       with:
