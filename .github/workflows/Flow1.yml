@@ -72,6 +72,10 @@ jobs:
         echo "Selected Environment is="${{ github.event.inputs.TestEnv }}
         xvfb-run ant -file build.xml "-DTestEnv=default" "-DTestPlan=Regression_API/${{matrix.Plan}}" runtests
    
+    - name: Temp
+      run: |
+        echo "Test" ${{steps.{CHANGELOG_STEP_ID}.outputs.total}}
+
     - name: Publish Test Report NEW TRY
       uses: mikepenz/action-junit-report@v3
       id: test-report1
