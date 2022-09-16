@@ -90,7 +90,7 @@ jobs:
          
     - name: Temp
       run: |
-        echo "Test" ${{steps.{test-report1}.outputs.total}}     
+        echo "Test" ${{steps.test-report1.outputs.total}}     
         
     - name: Send Thread Message
       uses: archive/github-actions-slack@master
