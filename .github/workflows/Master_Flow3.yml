@@ -2,7 +2,7 @@ name: Master_Flow3
 
 on:
   release:
-    types: [published,]
+    types: [published,prereleased]
     inputs:
       TestEnv:
         type: choice
