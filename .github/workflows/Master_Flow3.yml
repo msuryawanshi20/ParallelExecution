@@ -15,14 +15,14 @@ on:
         
 jobs:
   call-workflow-1:
-    uses: ./.github/workflows/Flow1.yml
+    uses: ./.github/workflows/T1.yml
     with:
       TestEnv: ${{ github.event.inputs.TestEnv }}
     secrets: inherit
   call-workflow-2:
     if: ${{ always() }}  
     needs: call-workflow-1
-    uses: ./.github/workflows/Flow2.yml
+    uses: ./.github/workflows/T1.yml
     with:
       TestEnv: ${{ github.event.inputs.TestEnv }}
     secrets: inherit
