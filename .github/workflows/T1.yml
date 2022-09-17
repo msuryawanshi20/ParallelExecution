@@ -1,0 +1,43 @@
+name: T1
+
+on: 
+  workflow_call:
+    inputs:
+      TestEnv:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      TestEnv:
+        type: choice
+        description: Select environment
+        options: 
+        - AutomationOrg
+        - default        
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: 
+       PROVAR_HOME: ${{ github.workspace }}/ProvarHome
+       
+    strategy:
+      fail-fast: false
+      matrix:
+        Plan: ["Test1",Test2]  	
+    
+    steps:
+    - name: Execute Test Plan-${{matrix.Plan}}
+      run: |
+        echo "Test Environment"${{ github.event.inputs.TestEnv }}
+
+    - name: Execute Test Plan-${{matrix.Plan}}
+      run: |
+        echo "Test Plan Name Env Var--:"${{ steps.PlanName.outputs.PlanName}}
+        mkdir $GITHUB_WORKSPACE/ProvarHome
+        echo $PROVAR_HOME
+        cd $GITHUB_WORKSPACE/ANT
+        echo "Work SPace Path:::"${{ github.workspace }}
+        echo "Selected Plan Name="${{matrix.Plan}}
+        echo "Selected Environment is="${{ github.event.inputs.TestEnv }}
+
