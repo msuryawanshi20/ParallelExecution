@@ -3,12 +3,16 @@ name: Master_Flow3
 on:
   release:
     types: [published,prereleased]
+  workflow_call:
+  workflow_dispatch:
     inputs:
       TestEnv:
         type: choice
-        description: Please select environment
+        description: Select environment
         options: 
-        - AutomationOrg 
+        - AutomationOrg
+        - default
+        
 jobs:
   call-workflow-1:
     uses: ./.github/workflows/Flow1.yml
