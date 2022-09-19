@@ -2,10 +2,6 @@ name: Dummy1
 
 on: 
   workflow_call:
-    inputs:
-      TestEnv:
-        required: true
-        type: string
 
 jobs:
   build:
