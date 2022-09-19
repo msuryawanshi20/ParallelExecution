@@ -1,0 +1,54 @@
+name: Dummy1
+
+on: 
+  workflow_call:
+    inputs:
+      TestEnv:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: 
+       PROVAR_HOME: ${{ github.workspace }}/ProvarHome
+       
+    strategy:
+      fail-fast: false
+      matrix:
+        Plan: ["Test1",Test2]  	
+    
+    steps:
+    - name: Execute Test Plan-${{matrix.Plan}}
+      run: |
+        echo "Test Environment"${{ github.event.inputs.TestEnv }}
+        
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H_%M_%S')"
+
+    - name: Set Plan Name
+      id: PlanName
+      run: |
+        temp="${{matrix.Plan}}"	
+        echo "::set-output name=PlanName::$(echo ${temp// /_})"    
+
+    - uses: actions/checkout@v2
+    - name: Set up JDK 8
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: 8
+
+   
+    - name: Execute Test Plan-${{matrix.Plan}}
+      run: |
+        echo "Test Plan Name Env Var--:"${{ steps.PlanName.outputs.PlanName}}
+        mkdir $GITHUB_WORKSPACE/ProvarHome
+        echo $PROVAR_HOME
+        cd $GITHUB_WORKSPACE/ANT
+        echo "Work SPace Path:::"${{ github.workspace }}
+        echo "Selected Plan Name="${{matrix.Plan}}
+        echo "Selected Environment is="${{ github.event.inputs.TestEnv }}
+
+
