@@ -74,22 +74,20 @@
                       </arguments>
                       <parameterValueSources>
                         <parameterValueSource variableName="op_ExcelData" variableScope="Test">
-                          <cacheToken>D:/Provar/rsqasampleproj/templates/AutomationOrg/CRUD-Engg BOM Master.xlsx;1655124237860</cacheToken>
+                          <cacheToken>D:/Provar_New/rsqasampleproj/templates/AutomationOrg/CRUD-Engineering BOM Master.xlsx;1652868643500</cacheToken>
                           <cachedParameters>
                             <apiParam name="RowNumber"/>
                             <apiParam name="ParentItem"/>
                             <apiParam name="ComponentItem"/>
                             <apiParam name="QuantityPer"/>
-                            <apiParam name="LineNumber"/>
                             <apiParam name="ScrapFactor"/>
-                            <apiParam name="FixedQuantity"/>
                             <apiParam name="SetupQuantity"/>
-                            <apiParam name="PhantomOverride"/>
+                            <apiParam name="LineNumber"/>
                           </cachedParameters>
                           <sourceValue class="excelTarget" namesLocation="FirstRowOfRange" whereComparison="EqualTo">
-                            <workbookPath class="value" valueClass="string">D:\\Provar\\rsqasampleproj\\templates\\AutomationOrg\\CRUD-Engg BOM Master.xlsx</workbookPath>
-                            <worksheetName class="value" valueClass="string">Create_BOM Master</worksheetName>
-                            <valuesRange class="value" valueClass="string">A:H</valuesRange>
+                            <workbookPath class="value" valueClass="string">templates/AutomationOrg/CRUD-Engineering BOM Master.xlsx</workbookPath>
+                            <worksheetName class="value" valueClass="string">Create_Engineering BOM Master</worksheetName>
+                            <valuesRange class="value" valueClass="string">A:F</valuesRange>
                           </sourceValue>
                         </parameterValueSource>
                       </parameterValueSources>
@@ -168,7 +166,7 @@
       <clauses>
         <clause name="substeps" testItemId="69">
           <steps>
-            <caseCall testCaseId="ea0db62d-bab5-46c9-86d6-adddd2bd5b12" testCasePath="tests/Mfg Engineering/Callable/Add Engineering BOM Master.testcase" testItemId="118">
+            <caseCall testCaseId="ea0db62d-bab5-46c9-86d6-adddd2bd5b12" testCasePath="tests/Mfg Engineering/Callable/Add Engineering BOM Master.testcase" testItemId="121">
               <arguments>
                 <argument id="reuseConnectionName">
                   <value class="value" valueClass="string">SFConnection</value>
@@ -209,18 +207,8 @@
                     <path element="LineNumber"/>
                   </value>
                 </argument>
-                <argument id="ip_FixedQty">
-                  <value class="variable">
-                    <path element="op_ExcelData_row"/>
-                    <path element="FixedQty"/>
-                  </value>
-                </argument>
-                <argument id="ip_PhantomOverride">
-                  <value class="variable">
-                    <path element="op_ExcelData_row"/>
-                    <path element="Phantom_Override"/>
-                  </value>
-                </argument>
+                <argument id="ip_FixedQty"/>
+                <argument id="ip_PhantomOverride"/>
               </arguments>
             </caseCall>
             <apiCall apiId="com.provar.plugins.bundled.apis.Switch" name="Switch" testItemId="27" title="Switch: {GetSelectedEnvironment()}">
@@ -254,22 +242,20 @@
                               </arguments>
                               <parameterValueSources>
                                 <parameterValueSource variableName="op_ExcelDataEdit" variableScope="Test">
-                                  <cacheToken>D:/Provar/rsqasampleproj/templates/AutomationOrg/CRUD-Engg BOM Master.xlsx;1655124237860</cacheToken>
+                                  <cacheToken>D:/Provar_New/rsqasampleproj/templates/AutomationOrg/CRUD-Engineering BOM Master.xlsx;1652868643500</cacheToken>
                                   <cachedParameters>
                                     <apiParam name="RowNumber"/>
                                     <apiParam name="ParentItem"/>
                                     <apiParam name="ComponentItem"/>
                                     <apiParam name="QuantityPer"/>
-                                    <apiParam name="LineNumber"/>
                                     <apiParam name="ScrapFactor"/>
-                                    <apiParam name="FixedQuantity"/>
                                     <apiParam name="SetupQuantity"/>
-                                    <apiParam name="PhantomOverride"/>
+                                    <apiParam name="LineNumber"/>
                                   </cachedParameters>
                                   <sourceValue class="excelTarget" namesLocation="FirstRowOfRange" whereComparison="EqualTo">
-                                    <workbookPath class="value" valueClass="string">D:\\Provar\\rsqasampleproj\\templates\\AutomationOrg\\CRUD-Engg BOM Master.xlsx</workbookPath>
-                                    <worksheetName class="value" valueClass="string">Edit_BOM Master</worksheetName>
-                                    <valuesRange class="value" valueClass="string">A:H</valuesRange>
+                                    <workbookPath class="value" valueClass="string">templates/AutomationOrg/CRUD-Engineering BOM Master.xlsx</workbookPath>
+                                    <worksheetName class="value" valueClass="string">Edit_Engineering BOM Master</worksheetName>
+                                    <valuesRange class="value" valueClass="string">A:F</valuesRange>
                                   </sourceValue>
                                 </parameterValueSource>
                               </parameterValueSources>
