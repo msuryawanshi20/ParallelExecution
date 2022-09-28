@@ -1,0 +1,21 @@
+name: Dummy1
+
+on: 
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: 
+       PROVAR_HOME: ${{ github.workspace }}/ProvarHome
+       
+    strategy:
+      fail-fast: false
+      matrix:
+        Plan: ["Test1",Test2]  	
+    
+    steps:
+    - name: Execute Test Plan-${{matrix.Plan}}
+      run: |
+        echo "Test Environment"${{ github.event.inputs.TestEnv }}
+        echo "Test Environment"${{ github.event.inputs.environment  }}

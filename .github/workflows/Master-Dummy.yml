@@ -1,0 +1,18 @@
+name: Master-Dummy
+
+on: 
+  workflow_dispatch:
+    inputs:
+      Build-Version:
+        required: true
+      environment:
+        type: environment
+jobs:
+  call-workflow-1:
+    uses: ./.github/workflows/Dummy1.yml
+    secrets: inherit
+  call-workflow-2:
+    needs: call-workflow-1
+    uses: ./.github/workflows/Dummy1.yml
+    secrets: inherit
+

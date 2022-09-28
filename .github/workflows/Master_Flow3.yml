@@ -1,0 +1,28 @@
+name: Master_Flow3
+
+on:
+  release:
+    types: [published,prereleased]
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      TestEnv:
+        type: choice
+        description: Select environment
+        options: 
+        - AutomationOrg
+        - default
+        
+jobs:
+  call-workflow-1:
+    uses: ./.github/workflows/T1.yml
+    with:
+      TestEnv: ${{ github.event.inputs.TestEnv }}
+    secrets: inherit
+  call-workflow-2:
+    if: ${{ always() }}  
+    needs: call-workflow-1
+    uses: ./.github/workflows/T1.yml
+    with:
+      TestEnv: ${{ github.event.inputs.TestEnv }}
+    secrets: inherit
