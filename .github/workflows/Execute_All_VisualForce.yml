@@ -68,5 +68,5 @@ jobs:
         uses: adrey/slack-file-upload-action@master
         with:
           token: ${{ secrets.SLACK_CHANNEL_PERSONAL }}
-          path: buildURL.log
+          path: /home/runner/work/ParallelExecution/ParallelExecution/buildURL.log
           channel: provar_notification
