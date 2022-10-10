@@ -27,10 +27,10 @@
 							testOutputlevel="BASIC" 
 							pluginOutputlevel="SEVERE"
 							stopTestRunOnError="false"
-							invokeTestRunMonitor="true"
 							testCyclePath="${testcycle.path}"
 							testCycleRunType="FAILURES_AND_SKIPPED"
-							>
+							invokeTestRunMonitor="true"
+		>
 
 			<fileset id="testplan" dir="../plans/${TestPlan}"></fileset>
 			<planFeature name="PDF" type="OUTPUT" enabled="true"/>
