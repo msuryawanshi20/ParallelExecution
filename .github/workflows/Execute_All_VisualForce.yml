@@ -58,11 +58,15 @@ jobs:
     
       - name: Get Build URL
         uses: actions/checkout@v1
-      - run: echo "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" > buildURL.log
+      - run: |
+          pwd
+          echo "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" > buildURL.log
+          echo "List of files----"
+          ls -ltr
       
       - name: Send build URL to slack
         uses: adrey/slack-file-upload-action@master
         with:
           token: ${{ secrets.SLACK_CHANNEL_PERSONAL }}
-          path: **/buildURL.log
+          path: buildURL.log
           channel: provar_notification
