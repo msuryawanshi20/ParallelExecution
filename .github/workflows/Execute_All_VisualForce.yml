@@ -67,6 +67,6 @@ jobs:
       - name: Send build URL to slack
         uses: adrey/slack-file-upload-action@master
         with:
-          token: ${{ secrets.SLACK_CHANNEL_PERSONAL }}
+          token: ${{ secrets.SLACK_TOKEN_PERSONAL }}
           path: /home/runner/work/ParallelExecution/ParallelExecution/buildURL.log
           channel: provar_notification
