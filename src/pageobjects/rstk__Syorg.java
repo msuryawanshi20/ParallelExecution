@@ -28,6 +28,12 @@ public class rstk__Syorg {
 	@TextType()
 	@FindBy(xpath = "//input[@id='syorg_dimval__c_autocomplete']")
 	public WebElement Accounting_Dimension_Value;
+	
+	@PageWaitAfter.BackgroundActivity(timeoutSeconds = 60)
+	@TextType()
+	@FindBy(id = "li-0")
+	public WebElement accdimList;
+	
 	@BooleanType()
 	@FindBy(xpath = "//label[normalize-space(.)='Purchasing Dept Indicator']/parent::span/parent::th/following-sibling::td//input")
 	public WebElement purchasingDeptIndicator;
@@ -49,5 +55,10 @@ public class rstk__Syorg {
 	@ButtonType()
 	@FindBy(xpath = "//div[1]/table//span/input[2]")
 	public WebElement delete;
+	
+	@TextType()
+	@FindBy(xpath = "//label[normalize-space(.)='Division']//parent::th/following-sibling::td//span[1]/a|//label[normalize-space(.)='Division']/parent::span/parent::th/following-sibling::td")
+	public WebElement division;
+	
 	
 }
